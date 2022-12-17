@@ -80,7 +80,7 @@ Language preferences: en
 gpg/card> sex       # set your gender
 Salutation (M = Mr., F = Ms., or space): M
 gpg/card> login     # set your email address
-Login data (account name): arsham.teymouri@gmail.com
+Login data (account name): user.userfamilyname@gmail.com
 gpg/card> key-attr  # change encryption algorithm for Signature, Encryption and Authentication keys (repeat the process 3 times)
 gpg/card> 2         # choose elliptic curve
 gpg/card> 1         # default
@@ -102,7 +102,7 @@ gpg --full-generate-key --expert
 
 pub   ed25519 2021-11-03 [SC]
       B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
-uid                      test teymouri <test@test.com>
+uid                      test userfamilyname <test@test.com>
 sub   cv25519 2021-11-03 [E]
 
 # Add Authentication Key to the PGP
@@ -141,7 +141,7 @@ ssb  cv25519/DFBE17381376246A
      created: 2021-11-03  expires: never       usage: E
 ssb  ed25519/48B2EEDAD8D771CE
      created: 2021-11-03  expires: never       usage: A
-[ultimate] (1). test teymouri <test@test.com>
+[ultimate] (1). test userfamilyname <test@test.com>
 
 gpg> save
 ```
@@ -181,7 +181,7 @@ ssb* cv25519/DFBE17381376246A
      created: 2021-11-03  expires: never       usage: E
 ssb  ed25519/48B2EEDAD8D771CE
      created: 2021-11-03  expires: never       usage: A
-[ultimate] (1). test teymouri <test@test.com>
+[ultimate] (1). test userfamilyname <test@test.com>
 gpg> keytocard
 
 gpg> key 1      # deselect key 1
@@ -195,12 +195,12 @@ gpg> save
 # The line containing "Card serial no" shows that the private key is stored on the Yubikey
 # the ">" shows that the key is only stored on the Yubikey and not available on the local machine anymore!
 gpg -K    # list private keys
-/Users/arsham/.gnupg/pubring.kbx
+/Users/user/.gnupg/pubring.kbx
 --------------------------------
 sec>  ed25519 2021-11-03 [SC]
       8BDD39A7FCEB757492E393194C598C56456BC077
       Card serial no. = 0006 15864528
-uid           [ultimate] Arsham Teymouri <arsham.teymouri@gmail.com>
+uid           [ultimate] user userFamilyName <user.userfamilyname@gmail.com>
 ssb>  cv25519 2021-11-03 [E]
 ssb>  ed25519 2021-11-03 [A]
 
@@ -214,7 +214,7 @@ ssb>  ed25519/BB660F5E48725F76  created: 2021-11-03  expires: never
 
 gpg --card-status
 # you should see "card no" for all the keys stored on the Yubikey
-General key info..: pub  ed25519/4C598C56456BC077 2021-11-03 Arsham Teymouri <arsham.teymouri@gmail.com>
+General key info..: pub  ed25519/4C598C56456BC077 2021-11-03 user userFamilyName <user.userfamilyname@gmail.com>
 sec>  ed25519/4C598C56456BC077  created: 2021-11-03  expires: never
                                 card-no: 0006 15864528
 ssb>  cv25519/FEDBACDE1473B14D  created: 2021-11-03  expires: never
@@ -259,7 +259,7 @@ ssb  cv25519/DFBE17381376246A
      created: 2021-11-03  expires: never       usage: E
 ssb  ed25519/48B2EEDAD8D771CE
      created: 2021-11-03  expires: never       usage: A
-[ultimate] (1). test teymouri <test@test.com>
+[ultimate] (1). test userfamilyname <test@test.com>
 
 gpg> keytocard
 Really move the primary key? (y/N) y
@@ -282,7 +282,7 @@ ssb* cv25519/DFBE17381376246A
      created: 2021-11-03  expires: never       usage: E
 ssb  ed25519/48B2EEDAD8D771CE
      created: 2021-11-03  expires: never       usage: A
-[ultimate] (1). test teymouri <test@test.com>
+[ultimate] (1). test userfamilyname <test@test.com>
 gpg> keytocard
 
 gpg> key 1      # deselect key 1
@@ -309,8 +309,8 @@ gpg --card-status
 
 #### Test 2
 # Encrypt something with the Public Key and try to decrypt it with both of the Yubikeys
-gpg -r arsham.teymouri@gmail.com -e <file-name>     # encrypt
-gpg -r arsham.teymouri@gmail.com -d <filename>      # decrypt
+gpg -r user.userfamilyname@gmail.com -e <file-name>     # encrypt
+gpg -r user.userfamilyname@gmail.com -d <filename>      # decrypt
 ```
 
 Publish Your Public GPG Key
@@ -353,9 +353,9 @@ ssh-add -L | grep cardno > ~/.ssh/id_rsa_yubikey.pub
 ## Signing
 vim ~/.gitconfig
 [user]
-        email = arsham.teymouri@gmail.com
-        name  = Arsham Teymouri
-        signingkey = arsham.teymouri@gmail.com
+        email = user.userfamilyname@gmail.com
+        name  = user userFamilyName
+        signingkey = user.userfamilyname@gmail.com
 [commit]
         gpgsign = true
 
