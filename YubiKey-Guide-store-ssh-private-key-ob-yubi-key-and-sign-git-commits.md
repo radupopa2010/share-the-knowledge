@@ -217,6 +217,7 @@ NOTE: Make sure to encrypt the revoke certificate and store it on the offline US
 1. export Master public key
 ```bash
 gpg --export --armor > ${PUBLIC_KEY}.pub      
+cp ${PUBLIC_KEY}.pub ~/~/.gnupg/${PUBLIC_KEY}.pub
 ```
 encrypt private key and save to file
 ```bash
