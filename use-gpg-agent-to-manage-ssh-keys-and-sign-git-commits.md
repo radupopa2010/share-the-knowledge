@@ -1,8 +1,8 @@
 https://github.com/drduh/YubiKey-Guide
 
-# How to store ssh private key on yubi-key and sign git commits
+## How to use gpg-agent to manage ssh keys and sign git commits
 
-## Requirements (MacOS)
+### Requirements (MacOS)
 
 ```
 ## pinentry-mac is needed for smart cards.
@@ -506,13 +506,13 @@ ssb>  cv25519/8076517A2FA29A32  created: 2022-12-19  expires: never
                                 card-no: 0006 20551026
 ssb>  ed25519/6C877495BB0BB2CA  created: 2022-12-19  expires: never     
                                 card-no: 0006 20551026
-
 ```
 
-** cleanup: delete all private keys, except for the public key **
+**cleanup: delete all private keys, except for the public key**
+
 ```bash
 rm decrypted-private-key
-
+# delete ${PRIVATE_KEY}* files also
 ```
 
 
