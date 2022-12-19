@@ -65,6 +65,45 @@ ssh-add -L            # confirm
 ```
 
 ### Configure Yubikeys
+#### Required software
+
+[ykman - Configure your YubiKey via the command line](https://developers.yubico.com/yubikey-manager/)
+
+##### Debian and Ubuntu
+```bash
+sudo apt update
+sudo apt -y upgrade
+sudo apt -y install wget gnupg2 gnupg-agent dirmngr cryptsetup scdaemon pcscd secure-delete hopenpgp-tools yubikey-personalization
+```
+
+You may additionally need (particularly for Ubuntu 18.04 and 20.04):
+
+```bash
+sudo apt -y install libssl-dev swig libpcsclite-dev
+```
+
+To install and use the `ykman` utility
+
+```bash
+sudo apt -y install python3-pip python3-pyscard
+
+sudo apt-add-repository ppa:yubico/stable
+sudo apt update
+sudo apt install -y yubikey-manager
+
+sudo service pcscd start  
+
+ykman list
+YubiKey 5C NFC (5.4.3) [OTP+FIDO+CCID] Serial: 20551026
+
+
+ykman openpgp info
+
+```
+
+#### NixOS
+https://github.com/drduh/YubiKey-Guide#nixos
+
 ### Meta Configuration
 Do these Steps On both of the Yubikeys (you should have 2 ):
 
@@ -490,7 +529,7 @@ gpg --keyserver keys.openpgp.org --receive-keys ${PUBLIC_KEY}     # Import Publi
 # if previous step fails, use
 gpg --import ${PUBLIC_KEY}.pub
 
-echo 'gpg --import ${PUBLIC_KEY}.pub' >> ~/.bashrc
+echo "gpg --import ~/.gnupg/${PUBLIC_KEY}.pub" >> ~/.bashrc
 # edit ~/.bashrc and make sure it is before `gpgconf --launch gpg-agent`
 echo "never gonna give you up" | gpg --armor --sign        # connect yubikey and test
 ```
@@ -517,7 +556,8 @@ vim ~/.gitconfig
 [commit]
         gpgsign = true
 
-pkill gpg-agent ssh-agent
+pkill gpg-agent 
+pkill ssh-agent
 gpgconf --launch gpg-agent
 ```
 
@@ -527,4 +567,32 @@ gpg --list-secret-keys
 gpg --armor --export 49B46413995BE582B45DB1AAD53D78E6BF32A46F
 ```
 
-# test line
+#### Require touch
+By default, YubiKey will perform encryption, signing and authentication operations without requiring any action from the user, after the key is plugged in and first unlocked with the PIN.
+
+
+TODO: set touch yubi-key policy to authenticate, sign and encrypt openrations
+https://github.com/drduh/YubiKey-Guide#require-touch
+
+**Following commands do not work for me at the moment, but I previously I had
+a config that worked**
+
+
+Authentication:
+
+```bash
+ykman openpgp keys set-touch aut on
+```
+
+Signing:
+
+```bash
+ykman openpgp keys set-touch sig on
+```
+
+Encryption:
+
+```bash
+ykman openpgp keys set-touch enc on
+```
+
