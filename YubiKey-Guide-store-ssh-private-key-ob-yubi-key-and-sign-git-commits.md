@@ -2,7 +2,7 @@ https://github.com/drduh/YubiKey-Guide
 
 # How to store ssh private key on yubi-key and sign git commits
 
-#### Requirements (MacOS)
+## Requirements (MacOS)
 
 ```
 ## pinentry-mac is needed for smart cards.
@@ -40,7 +40,7 @@ ps aux | grep gpg
 gpgconf --launch gpg-agent
 ```
 
-##### Linux
+## Linux
 Configure gpgp client for ssh
   - [**scdaemon** - Smartcard daemon for the GnuPG system](https://linux.die.net/man/1/scdaemon)
   - [GnuPG system](https://gnupg.org/)
@@ -64,10 +64,11 @@ source ~/.bashrc
 ssh-add -L            # confirm
 ```
 
-Configure Yubikeys
-Meta Configuration
-Do these Steps On both of the Yubikeys:
-```
+### Configure Yubikeys
+### Meta Configuration
+Do these Steps On both of the Yubikeys (you should have 2 ):
+
+```bash
 gpg --edit-card
 gpg/card> admin
 gpg/card> help
@@ -92,21 +93,45 @@ gpg/card> uif 3 on  # enable touch id for authentication certificate
 gpg/card> list
 ```
 
-Generate GPG key pair
-NOTE: Disconnect Your Laptop from internet until you remove the GPG keys in the end of the process
-After these steps you will have a Master key with Signing(S) and Certificate-Creation(C) capabilites + a subkey for encryption(E) and another one for authentication(A):
-```
-# Generate your PGP key
+#### Generate GPG key pair
+NOTE: **Disconnect Your Laptop from internet** until you remove the GPG keys in the end of the process
+After these steps you will have a Master key with Signing(S) and Certificate-Creation(C) capabilities + a subkey for encryption(E) and another one for authentication(A):
+
+```bash
 gpg --full-generate-key --expert
 (9) ECC (sign and encrypt) *default*
 
-pub   ed25519 2021-11-03 [SC]
-      B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
-uid                      test userfamilyname <test@test.com>
-sub   cv25519 2021-11-03 [E]
+gpg: directory '/home/user/.gnupg/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/home/user/.gnupg/openpgp-revocs.d/${PUBLIC_KEY}.rev'
+public and secret key created and signed.
 
-# Add Authentication Key to the PGP
-gpg --edit-key --expert B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
+pub   ed25519 2022-12-19 [SC]
+      DBE0B8427CD7E8606C8CB852F7391C70EA811321
+uid                      User UserFamilyName <user@gmail.com>
+sub   cv25519 2022-12-19 [E]
+```
+
+```bash
+gpg --list-keys
+/home/user/.gnupg/pubring.kbx
+-----------------------------
+pub   ed25519 2022-12-19 [SC]
+      DBE0B8427CD7E8606C8CB852F7391C70EA811321
+uid           [ultimate] User UserFamilyName <user@gmail.com>
+sub   cv25519 2022-12-19 [E]
+sub   ed25519 2022-12-19 [A]
+```
+
+
+We are going to use `${PUBLIC_KEY}` in following instructions, so set this as a
+variable now.
+
+`PUBLIC_KEY=DBE0B8427CD7E8606C8CB852F7391C70EA811321`
+
+
+##### Add Authentication Key to the PGP
+```bash
+gpg --edit-key --expert ${PUBLIC_KEY}
 gpg> addkey
 Your selection? (11) ECC (set your own capabilities)
 Possible actions for this ECC key: Sign Authenticate
@@ -146,20 +171,47 @@ ssb  ed25519/48B2EEDAD8D771CE
 gpg> save
 ```
 
-Backup GPG key pair
+
+##### Backup GPG key pair
 Backup Secret keys and encrypt them with a password and store it on an offline USB Device!
 NOTE: Make sure to encrypt the revoke certificate and store it on the offline USB as well just in case!
+1. export Master public key
+```bash
+gpg --export --armor > ${PUBLIC_KEY}.pub      
 ```
-gpg --export --armor > 8BDD39A7FCEB757492E393194C598C56456BC077.pub      # export Master public key
-gpg --export-secret-keys --armor 8BDD39A7FCEB757492E393194C598C56456BC077 | gpg --symmetric --armor > 8BDD39A7FCEB757492E393194C598C56456BC077.sec 
-gpg --export-secret-subkeys --armor 8BDD39A7FCEB757492E393194C598C56456BC077 | gpg --symmetric --armor > 8BDD39A7FCEB757492E393194C598C56456BC077-subkeys.sec
-cat ~/.gnupg/openpgp-revocs.d/B261A1CCCA3CB4B59DFF41E1E10C8B9679919600.rev | gpg --symmetric --armor > 8BDD39A7FCEB757492E393194C598C56456BC077-revoke.sec
+encrypt private key and save to file
+```bash
+gpg --export-secret-keys --armor ${PUBLIC_KEY} \
+  | gpg --symmetric --armor > ${PUBLIC_KEY}-secret-keys.sec 
 ```
+
+encrypt subkey and save to file
+```bash
+gpg --export-secret-subkeys --armor ${PUBLIC_KEY} \
+  | gpg --symmetric --armor > ${PUBLIC_KEY}-subkeys.sec
+```
+
+encrypt revoke certificate and save to file
+```bash
+cat ~/.gnupg/openpgp-revocs.d/${PUBLIC_KEY}.rev \
+  | gpg --symmetric --armor > ${PUBLIC_KEY}-revoke.sec
+```
+
+copy all keys to backup
+```bash
+mkdir backups
+cp ${PUBLIC_KEY}.pub \
+   ${PUBLIC_KEY}-revoke.sec \
+   ${PUBLIC_KEY}-secret-keys.sec \
+   ${PUBLIC_KEY}-subkeys.sec \
+   backups/
+```
+
 
 Move the GPG key pair to the first Yubikey
 First we will move the Keys to the 1st Yubikey. Notice that this will remove the keys from the local machine, so for the second Yubikey we need to restore them from the backup again to be able to insert them to the 2nd Yubikey!
-```
-gpg --edit-key --expert B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
+```bash
+gpg --edit-key --expert ${PUBLIC_KEY}
 gpg> keytocard
 Really move the primary key? (y/N) y
 Please select where to store the key:
@@ -172,6 +224,7 @@ gpg: WARNING: such a key has already been stored on the card!
 Replace existing key? (y/N) y
 
 # Select the 1st subkey and move it to Yubikey
+# Basicyally repeat all steps 3 times
 gpg> key 1      # the "*" character in front of the ssb shows which key is selected
 
 sec  ed25519/E10C8B9679919600
@@ -189,22 +242,27 @@ gpg> key 2      # select key 2
 gpg> keytocard
 
 gpg> save
+```
 
 
 ##### Confirm the steps
-# The line containing "Card serial no" shows that the private key is stored on the Yubikey
-# the ">" shows that the key is only stored on the Yubikey and not available on the local machine anymore!
-gpg -K    # list private keys
+  - The line containing "Card serial no" shows that the private key is stored on the Yubikey
+  - the ">" shows that the key is only stored on the Yubikey and not available on the local machine anymore!
+
+```bash
+gpg --list-secret-keys    # list private keys
 /Users/user/.gnupg/pubring.kbx
 --------------------------------
 sec>  ed25519 2021-11-03 [SC]
-      8BDD39A7FCEB757492E393194C598C56456BC077
+      ${PUBLIC_KEY}
       Card serial no. = 0006 15864528
 uid           [ultimate] user userFamilyName <user.userfamilyname@gmail.com>
 ssb>  cv25519 2021-11-03 [E]
 ssb>  ed25519 2021-11-03 [A]
 
-gpg --edit-key --expert B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
+
+
+gpg --edit-key --expert ${PUBLIC_KEY}
 sec>  ed25519/4C598C56456BC077  created: 2021-11-03  expires: never
                                 card-no: 0006 15864528
 ssb>  cv25519/FEDBACDE1473B14D  created: 2021-11-03  expires: never
@@ -225,30 +283,65 @@ ssb>  ed25519/BB660F5E48725F76  created: 2021-11-03  expires: never
 
 After these steps, the private keys has been moved to the Yubikey and not being available on the local disk anymore!
 
-Move the GPG key pair to the Second Yubikey
-As the private keys has been removed by running keytocard function, we need to import them again from the backup.
+##### Move the GPG key pair to the Second Yubikey.
+
+According to the docs by running `keytocard` function, should remove from local
+keystore, but for me it didn't happen:
+```bash
+gpg --list-secret-keys
+/home/user/.gnupg/pubring.kbx
+-----------------------------
+sec>  ed25519 2022-12-19 [SC]
+      DBE0B8427CD7E8606C8CB852F7391C70EA811321
+      Card serial no. = 0006 20551026
+uid           [ultimate] User UserFamilyName <user@gmail.com>
+ssb>  cv25519 2022-12-19 [E]
+ssb>  ed25519 2022-12-19 [A]
+```
+
+so I had to delete them manually with
+
+```bash
+gpg --delete-secret-key ${PUBLIC_KEY}
+```
+
+
+Now import the keys again from the backup.
 Encrypt the GPG private key and import it alongside with the public one:
+
+
+NOTE: there should be no ">" in after "sec", "uid", etc.
 
 ```
 cd ~/backups
-gpg --import 8BDD39A7FCEB757492E393194C598C56456BC077.pub     # import the public key
-gpg -o decrypted-private-key -d 8BDD39A7FCEB757492E393194C598C56456BC077.sec
+gpg --import ${PUBLIC_KEY}.pub     # import the public key
+gpg -o decrypted-private-key -d ${PUBLIC_KEY}-secret-keys.sec
 gpg --import decrypted-private-key     # import the private key
 
-gpg -K
+gpg --list-secret-keys
       # Confirm that the keys exist on the local filesystem by not seeing ">" character!
+/home/user/.gnupg/pubring.kbx
+-----------------------------
+sec  ed25519 2022-12-19 [SC]
+     DBE0B8427CD7E8606C8CB852F7391C70EA811321
+     Card serial no. = 0006 20551026
+uid           [ultimate] user userfamilyname <user@gmail.com>
+ssb  cv25519 2022-12-19 [E]
+ssb  ed25519 2022-12-19 [A]
 ```
 
-Point GPG to the second Yubikey, This step is needed whenever you swap the Yubikeys:
-```
+**Point GPG to the second Yubikey. This step is needed whenever you swap the Yubi-keys**
+
+
+```bash
 gpg-connect-agent "scd serialno" "learn --force" /bye
 pkill gpg-agent
 gpgconf --launch gpg-agent
 ```
 
 Now Move the Keys to the second Yubikey:
-```
-gpg --edit-key --expert B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
+```bash
+gpg --edit-key --expert ${PUBLIC_KEY}
 gpg> trust    # you should see "trust: ultimate" and "validity: ultimate" after the process
 Your decision? 5 (I trust ultimately)
 Do you really want to set this key to ultimate trust? (y/N) y
@@ -292,39 +385,99 @@ gpg> keytocard
 gpg> save
 
 #### Confirm the keys are stored on the Yubikey
-gpg -K
-gpg --edit-key --expert B261A1CCCA3CB4B59DFF41E1E10C8B9679919600
+gpg --list-secret-keys
+gpg --edit-key --expert ${PUBLIC_KEY}
 gpg --card-status
 ```
 
 Confirm the data of both Yubikeys are the same
-```
+
+```bash
 #### Test 1
 # Check the keys and their signature to be the same on both of the keys
 # Connect the first Yubikey
 gpg --card-status
-
+gpgconf --launch gpg-agent
 # remove the first yubikey and connect the second one
 gpg --card-status
+gpgconf --launch gpg-agent
 
 #### Test 2
 # Encrypt something with the Public Key and try to decrypt it with both of the Yubikeys
-gpg -r user.userfamilyname@gmail.com -e <file-name>     # encrypt
-gpg -r user.userfamilyname@gmail.com -d <filename>      # decrypt
+# replace User UserFamilyName  with real user that you used
+echo "hello world" > test-enc.txt
+
+gpg --recipient "User UserFamilyNamei" -e test-enc.txt        # encrypt
+cat test-enc.txt.gpg
+# encrypted content here
+gpg --recipient "User UserFamilyName" -d test-enc.txt.gpg      # decrypt
+gpg: encrypted with 255-bit ECDH key, ID 8076517A2FA29A32, created 2022-12-19
+      "User UserFamilyName <user@gmail.com>"
+hello world
+
+# reload agent
+gpg-connect-agent "scd serialno" "learn --force" /bye
+
+# verify the second card no is present in all places
+
+gpg --card-status 
+Reader ...........: 1050:0407:X:0
+Application ID ...: D2760001240103040006205510260000
+Application type .: OpenPGP
+Version ..........: 3.4
+Manufacturer .....: Yubico
+Serial number ....: 20551026
+Name of cardholder: User 
+Language prefs ...: [not set]
+Salutation .......: 
+URL of public key : [not set]
+Login data .......: [not set]
+Signature PIN ....: not forced
+Key attributes ...: ed25519 cv25519 ed25519
+Max. PIN lengths .: 127 127 127
+PIN retry counter : 2 0 3
+Signature counter : 0
+KDF setting ......: off
+Signature key ....: DBE0 B842 7CD7 E860 6C8C  B852 F739 1C70 EA81 1321
+      created ....: 2022-12-19 09:19:59
+Encryption key....: 8475 ED1C D388 03A6 9C95  3349 8076 517A 2FA2 9A32
+      created ....: 2022-12-19 09:19:59
+Authentication key: F1E1 A7FD 4494 D528 C456  B693 6C87 7495 BB0B B2CA
+      created ....: 2022-12-19 09:32:17
+General key info..: pub  ed25519/F7391C70EA811321 2022-12-19 User UserFamilyName <user@gmail.com>
+sec>  ed25519/F7391C70EA811321  created: 2022-12-19  expires: never     
+                                card-no: 0006 20551026
+ssb>  cv25519/8076517A2FA29A32  created: 2022-12-19  expires: never     
+                                card-no: 0006 20551026
+ssb>  ed25519/6C877495BB0BB2CA  created: 2022-12-19  expires: never     
+                                card-no: 0006 20551026
+
 ```
+
+** cleanup: delete all private keys, except for the public key **
+```bash
+rm decrypted-private-key
+
+```
+
 
 Publish Your Public GPG Key
+Enable internet
 ```
-gpg --keyserver keys.openpgp.org --send-key 8BDD39A7FCEB757492E393194C598C56456BC077
+gpg --keyserver keys.openpgp.org --send-key ${PUBLIC_KEY}
+# replace ${PUBLIC_KEY} with real value instead of variable for this step
+gpg: sending key F7391C70EA811321 to hkp://keys.openpgp.org
 
 # now check you email, confirm the GPG key and then find it on the web console:
+# use ${PUBLIC_KEY} to verify
+
 https://keys.openpgp.org/
 
 #### Optional: Edit Yubikeys and specify the Public key url for both of the yubikeys
 gpg --edit-card
 gpg/card> admin
 gpg/card> url
-URL to retrieve public key: https://keys.openpgp.org/vks/v1/by-fingerprint/8BDD39A7FCEB757492E393194C598C56456BC077
+URL to retrieve public key: https://keys.openpgp.org/vks/v1/by-fingerprint/${PUBLIC_KEY}
 ```
 
 Cleanup the Keys from Your Local Machine
@@ -333,12 +486,17 @@ find ~/.gnupg -type f -not -iname '*.conf' -exec rm {} \;   # remove ecerything 
 pkill gpg-agent
 gpgconf --launch gpg-agent
 
-gpg --keyserver keys.openpgp.org --receive-keys 8BDD39A7FCEB757492E393194C598C56456BC077     # Import Public Key
+gpg --keyserver keys.openpgp.org --receive-keys ${PUBLIC_KEY}     # Import Public Key
+# if previous step fails, use
+gpg --import ${PUBLIC_KEY}.pub
+
+echo 'gpg --import ${PUBLIC_KEY}.pub' >> ~/.bashrc
+# edit ~/.bashrc and make sure it is before `gpgconf --launch gpg-agent`
 echo "never gonna give you up" | gpg --armor --sign        # connect yubikey and test
 ```
 
-Multiple Yubikeys
-every time you disconnect one of the Yubikeys and Insert the other one, you must run this command:
+**Multiple Yubikeys
+every time you disconnect one of the Yubikeys and Insert the other one, you must run this command:**
 ```
 gpg-connect-agent "scd serialno" "learn --force" /bye
 ```
