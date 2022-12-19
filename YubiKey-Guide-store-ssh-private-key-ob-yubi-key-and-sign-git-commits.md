@@ -584,11 +584,11 @@ gpg --armor --export 49B46413995BE582B45DB1AAD53D78E6BF32A46F
 ```
 
 #### Require touch
+https://github.com/drduh/YubiKey-Guide#require-touch
+
 By default, YubiKey will perform encryption, signing and authentication operations without requiring any action from the user, after the key is plugged in and first unlocked with the PIN.
 
 
-TODO: set touch yubi-key policy to authenticate, sign and encrypt openrations
-https://github.com/drduh/YubiKey-Guide#require-touch
 
 **Following commands do not work for me at the moment, but I previously I had
 a config that worked**
