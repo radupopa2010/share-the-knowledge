@@ -91,7 +91,22 @@ sudo apt-add-repository ppa:yubico/stable
 sudo apt update
 sudo apt install -y yubikey-manager
 
-sudo service pcscd start  
+sudo systemctl start pcscd
+# Make sure pcscd is started
+
+sudo systemctl status pcscd
+● pcscd.service - PC/SC Smart Card Daemon
+     Loaded: loaded (/lib/systemd/system/pcscd.service; indirect; vendor preset: enabled)
+     Active: active (running) since Mon 2022-12-19 19:24:32 EET; 6s ago
+TriggeredBy: ● pcscd.socket
+       Docs: man:pcscd(8)
+   Main PID: 7585 (pcscd)
+      Tasks: 5 (limit: 38187)
+     Memory: 1.3M
+        CPU: 21ms
+     CGroup: /system.slice/pcscd.service
+             └─7585 /usr/sbin/pcscd --foreground --auto-exit
+
 
 ykman list
 YubiKey 5C NFC (5.4.3) [OTP+FIDO+CCID] Serial: 20551026
@@ -578,12 +593,65 @@ https://github.com/drduh/YubiKey-Guide#require-touch
 **Following commands do not work for me at the moment, but I previously I had
 a config that worked**
 
+Make sure you can run
+```bash
+ykman openpgp info
+OpenPGP version:            3.4
+Application version:        5.4.3
+PIN tries remaining:        3
+Reset code tries remaining: 0
+Admin PIN tries remaining:  3
+Signature PIN:              Always
+Touch policies:            
+  Signature key:      Off
+  Encryption key:     Off
+  Authentication key: Off
+  Attestation key:    Off
+```
+
+**If you can't run `ykman openpgp info`, try with a reboot** and make sure
+```bash
+sudo systemctl status pcscd
+○ pcscd.service - PC/SC Smart Card Daemon
+     Loaded: loaded (/lib/systemd/system/pcscd.service; indirect; vendor preset: enabled)
+     Active: inactive (dead) since Mon 2022-12-19 19:31:33 EET; 22s ago
+TriggeredBy: ● pcscd.socket
+       Docs: man:pcscd(8)
+    Process: 8324 ExecStart=/usr/sbin/pcscd --foreground --auto-exit $PCSCD_ARGS (code=exited, status=0/SUCCESS)
+   Main PID: 8324 (code=exited, status=0/SUCCESS)
+        CPU: 41ms
+
+Dec 19 19:30:12 pop-os systemd[1]: Started PC/SC Smart Card Daemon.
+Dec 19 19:31:33 pop-os systemd[1]: pcscd.service: Deactivated successfully.
+```
+
 
 Authentication:
 
 ```bash
 ykman openpgp keys set-touch aut on
+
+ykman openpgp keys set-touch aut on
+Enter Admin PIN: 
+Set touch policy of AUT key to on? [y/N]: y
+
+
+ykman openpgp info
+OpenPGP version:            3.4
+Application version:        5.4.3
+PIN tries remaining:        3
+Reset code tries remaining: 0
+Admin PIN tries remaining:  3
+Signature PIN:              Always
+Touch policies:            
+  Signature key:      Off
+  Encryption key:     Off
+  Authentication key: On
+  Attestation key:    Off
+
+
 ```
+Continue with the following cmd, same as above
 
 Signing:
 
