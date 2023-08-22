@@ -665,3 +665,4 @@ Encryption:
 ykman openpgp keys set-touch enc on
 ```
 
+[How to delete a subkey](https://sites.google.com/view/chewkeanho/guides/gnupg/delete-subkey)
