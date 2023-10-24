@@ -1,8 +1,9 @@
 https://github.com/drduh/YubiKey-Guide
 
-## How to use gpg-agent to manage ssh keys and sign git commits
+# How to use gpg-agent to manage ssh keys and sign git commits
 
-### Requirements (MacOS)
+## 1. Requirements 
+### MacOS
 
 ```
 ## pinentry-mac is needed for smart cards.
@@ -40,7 +41,7 @@ ps aux | grep gpg
 gpgconf --launch gpg-agent
 ```
 
-## Linux
+### Linux
 Configure gpgp client for ssh
   - [**scdaemon** - Smartcard daemon for the GnuPG system](https://linux.die.net/man/1/scdaemon)
   - [GnuPG system](https://gnupg.org/)
@@ -64,12 +65,12 @@ source ~/.bashrc
 ssh-add -L            # confirm
 ```
 
-### Configure Yubikeys
-#### Required software
+## 2. Configure Yubikeys
+Required software
 
 [ykman - Configure your YubiKey via the command line](https://developers.yubico.com/yubikey-manager/)
 
-##### Debian and Ubuntu
+### Debian and Ubuntu
 ```bash
 sudo apt update
 sudo apt -y upgrade
@@ -116,7 +117,7 @@ ykman openpgp info
 
 ```
 
-##### Macbook
+### Macbook
 ```bash
 pip3 install --user yubikey-manager
 ```
@@ -151,10 +152,10 @@ OpenPGP     	Enabled	Enabled
 YubiHSM Auth	Enabled	Enabled
 ```
 
-#### NixOS
+### NixOS
 https://github.com/drduh/YubiKey-Guide#nixos
 
-### Meta Configuration
+## 3. Meta Configuration
 Do these Steps On both of the Yubikeys (you should have 2 ):
 
 ```bash
@@ -182,7 +183,7 @@ gpg/card> uif 3 on  # enable touch id for authentication certificate
 gpg/card> list
 ```
 
-#### Generate GPG key pair
+## 4. Generate GPG key pair
 NOTE: **Disconnect Your Laptop from internet** until you remove the GPG keys in the end of the process
 After these steps you will have a Master key with Signing(S) and Certificate-Creation(C) capabilities + a subkey for encryption(E) and another one for authentication(A):
 
@@ -218,7 +219,7 @@ variable now.
 `PUBLIC_KEY=DBE0B8427CD7E8606C8CB852F7391C70EA811321`
 
 
-##### Add Authentication Key to the PGP
+## 5. Add Authentication Key to the GPG
 ```bash
 gpg --edit-key --expert ${PUBLIC_KEY}
 gpg> addkey
@@ -261,7 +262,7 @@ gpg> save
 ```
 
 
-##### Backup GPG key pair
+## 6. Backup GPG key pair
 Backup Secret keys and encrypt them with a password and store it on an offline USB Device!
 NOTE: Make sure to encrypt the revoke certificate and store it on the offline USB as well just in case!
 1. export Master public key
@@ -335,7 +336,7 @@ gpg> save
 ```
 
 
-##### Confirm the steps
+## 7. Confirm the steps
   - The line containing "Card serial no" shows that the private key is stored on the Yubikey
   - the ">" shows that the key is only stored on the Yubikey and not available on the local machine anymore!
 
@@ -373,7 +374,7 @@ ssb>  ed25519/BB660F5E48725F76  created: 2021-11-03  expires: never
 
 After these steps, the private keys has been moved to the Yubikey and not being available on the local disk anymore!
 
-##### Move the GPG key pair to the Second Yubikey.
+## 8. Move the GPG key pair to the Second Yubikey.
 
 According to the docs by running `keytocard` function, should remove from local
 keystore, but for me it didn't happen:
@@ -551,11 +552,11 @@ rm decrypted-private-key
 ```
 
 
-#### Publish Your Public GPG Key
+## 9. Publish Your Public GPG Key
 Enable internet.
-##### !!! Do not publish to keys.openpgp.org because they don't save the key ID and you will have problems when downloading and importing the key
+#### !!! Do not publish to keys.openpgp.org because they don't save the key ID and you will have problems when downloading and importing the key
 
-##### Publish to your google drive or any other cloud storage or any other key server like hkps://keyserver.ubuntu.com
+#### Publish to your google drive or any other cloud storage or any other key server like hkps://keyserver.ubuntu.com
 ```
 
 #### Optional: Edit Yubikeys and specify the Public key url for both of the yubikeys
@@ -565,7 +566,7 @@ gpg/card> url
 URL to retrieve public key: manual-download-from-google-drive
 ```
 
-Cleanup the Keys from Your Local Machine
+## 10. Cleanup the Keys from Your Local Machine
 ```
 find ~/.gnupg -type f -not -iname '*.conf' -exec rm {} \;   # remove ecerything except configs
 pkill gpg-agent
@@ -611,7 +612,7 @@ gpg --list-secret-keys
 gpg --armor --export 49B46413995BE582B45DB1AAD53D78E6BF32A46F
 ```
 
-#### Require touch
+## 11. Require touch
 https://github.com/drduh/YubiKey-Guide#require-touch
 
 By default, YubiKey will perform encryption, signing and authentication operations without requiring any action from the user, after the key is plugged in and first unlocked with the PIN.
@@ -696,16 +697,8 @@ ykman openpgp keys set-touch enc on
 [How to delete a subkey](https://sites.google.com/view/chewkeanho/guides/gnupg/delete-subkey)
 
 
-## Retrieving public key for a new mac
+# How Retrieving public key for a new machine (tested on a macbook)
 
-### !!! Important note
-keys stored on https://keys.openpgp.org do not store user ID for the public key. This will cause problems when you want to import your public key on a new machine.
-example error.
-```bash
-❯ gpg --import DBE0B8427CD7E8606C8CB852F7391C70EA811321.asc
-gpg: key F7391C70EA811321: no user ID
-gpg: Total number processed: 1
-```
 
 Manual step: download the public key, from a private glouc provider or any other keyserver except keys.openpgp.org and place it in `~/.ssh`
 ```bash
@@ -714,4 +707,14 @@ gpg --import DBE0B8427CD7E8606C8CB852F7391C70EA811321.pub
 gpg: key F7391C70EA811321: public key "Radu Popa <radupopa21@gmail.com>" imported
 gpg: Total number processed: 1
 gpg:               imported: 1
+```
+
+
+### !!! Important note
+keys stored on https://keys.openpgp.org do not store user ID for the public key. This will cause problems when you want to import your public key on a new machine.
+example error.
+```bash
+gpg --import DBE0B8427CD7E8606C8CB852F7391C70EA811321.asc
+gpg: key F7391C70EA811321: no user ID
+gpg: Total number processed: 1
 ```
