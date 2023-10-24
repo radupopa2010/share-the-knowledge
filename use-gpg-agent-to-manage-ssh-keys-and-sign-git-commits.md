@@ -116,6 +116,41 @@ ykman openpgp info
 
 ```
 
+##### Macbook
+```bash
+pip3 install --user yubikey-manager
+```
+If you haven't done it already you might want to add `PATH="/Users/radupopa/Library/Python/3.9/bin:$PATH"` to your system `PATH` in
+- `/etc/paths` or
+  ```bash
+  sudo echo 'PATH="/Users/radupopa/Library/Python/3.9/bin:$PATH" >> /etc/paths'
+  ```
+- `~/.bash_profile` if you use `bash` on mac instead of `zsh`
+
+  ```bash
+  echo 'PATH="/Users/radupopa/Library/Python/3.9/bin:$PATH" >> ~/.bash_profile'
+  ```
+
+When done check 
+```bash
+ykman info
+Device type: YubiKey 5C NFC
+Serial number: 20551026
+Firmware version: 5.4.3
+Form factor: Keychain (USB-C)
+Enabled USB interfaces: OTP, FIDO, CCID
+NFC transport is enabled.
+
+Applications	USB    	NFC
+OTP         	Enabled	Enabled
+FIDO U2F    	Enabled	Enabled
+FIDO2       	Enabled	Enabled
+OATH        	Enabled	Enabled
+PIV         	Enabled	Enabled
+OpenPGP     	Enabled	Enabled
+YubiHSM Auth	Enabled	Enabled
+```
+
 #### NixOS
 https://github.com/drduh/YubiKey-Guide#nixos
 
@@ -516,23 +551,18 @@ rm decrypted-private-key
 ```
 
 
-Publish Your Public GPG Key
-Enable internet
+#### Publish Your Public GPG Key
+Enable internet.
+##### !!! Do not publish to keys.openpgp.org because they don't save the key ID and you will have problems when downloading and importing the key
+
+##### Publish to your google drive or any other cloud storage or any other key server like hkps://keyserver.ubuntu.com
 ```
-gpg --keyserver keys.openpgp.org --send-key ${PUBLIC_KEY}
-# replace ${PUBLIC_KEY} with real value instead of variable for this step
-gpg: sending key F7391C70EA811321 to hkp://keys.openpgp.org
-
-# now check you email, confirm the GPG key and then find it on the web console:
-# use ${PUBLIC_KEY} to verify
-
-https://keys.openpgp.org/
 
 #### Optional: Edit Yubikeys and specify the Public key url for both of the yubikeys
 gpg --edit-card
 gpg/card> admin
 gpg/card> url
-URL to retrieve public key: https://keys.openpgp.org/vks/v1/by-fingerprint/${PUBLIC_KEY}
+URL to retrieve public key: manual-download-from-google-drive
 ```
 
 Cleanup the Keys from Your Local Machine
@@ -541,8 +571,6 @@ find ~/.gnupg -type f -not -iname '*.conf' -exec rm {} \;   # remove ecerything 
 pkill gpg-agent
 gpgconf --launch gpg-agent
 
-gpg --keyserver keys.openpgp.org --receive-keys ${PUBLIC_KEY}     # Import Public Key
-# if previous step fails, use
 gpg --import ${PUBLIC_KEY}.pub
 
 echo "gpg --import ~/.gnupg/${PUBLIC_KEY}.pub" >> ~/.bashrc
@@ -566,9 +594,9 @@ ssh-add -L | grep cardno > ~/.ssh/id_rsa_yubikey.pub
 ## Signing
 vim ~/.gitconfig
 [user]
-        email = user.userfamilyname@gmail.com
-        name  = user userFamilyName
-        signingkey = user.userfamilyname@gmail.com
+        email = <user.userfamilyname@gmail.com>
+        name  = <user userFamilyName>
+        signingkey = <user.userfamilyname@gmail.com>
 [commit]
         gpgsign = true
 
@@ -666,3 +694,24 @@ ykman openpgp keys set-touch enc on
 ```
 
 [How to delete a subkey](https://sites.google.com/view/chewkeanho/guides/gnupg/delete-subkey)
+
+
+## Retrieving public key for a new mac
+
+### !!! Important note
+keys stored on https://keys.openpgp.org do not store user ID for the public key. This will cause problems when you want to import your public key on a new machine.
+example error.
+```bash
+❯ gpg --import DBE0B8427CD7E8606C8CB852F7391C70EA811321.asc
+gpg: key F7391C70EA811321: no user ID
+gpg: Total number processed: 1
+```
+
+Manual step: download the public key, from a private glouc provider or any other keyserver except keys.openpgp.org and place it in `~/.ssh`
+```bash
+cd ~/.ssh
+gpg --import DBE0B8427CD7E8606C8CB852F7391C70EA811321.pub
+gpg: key F7391C70EA811321: public key "Radu Popa <radupopa21@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+```
