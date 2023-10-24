@@ -574,8 +574,8 @@ gpgconf --launch gpg-agent
 
 gpg --import ${PUBLIC_KEY}.pub
 
-echo "gpg --import ~/.gnupg/${PUBLIC_KEY}.pub" >> ~/.bashrc
-# edit ~/.bashrc and make sure it is before `gpgconf --launch gpg-agent`
+echo "gpg --import ~/.gnupg/${PUBLIC_KEY}.pub" >> ~/.bash_profile
+# edit ~/.bash_profile and make sure it is before `gpgconf --launch gpg-agent`
 echo "never gonna give you up" | gpg --armor --sign        # connect yubikey and test
 ```
 
@@ -609,7 +609,8 @@ gpgconf --launch gpg-agent
 Add your GPG Key to Github/GitLab
 ```
 gpg --list-secret-keys
-gpg --armor --export 49B46413995BE582B45DB1AAD53D78E6BF32A46F
+# get key ID
+gpg --armor --export 49B46413995BE582XXXXX78E6BF32A46F
 ```
 
 ## 11. Require touch
