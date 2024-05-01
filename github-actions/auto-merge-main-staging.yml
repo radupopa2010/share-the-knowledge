@@ -1,0 +1,61 @@
+name: Auto Backmerge Master => Staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  back_merge_to_staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check if main is Ahead of Staging
+        run: |
+          git fetch origin staging
+          AHEAD=$(git rev-list origin/main ^origin/staging | wc -l)
+          echo "AHEAD: $AHEAD"
+          if [ $AHEAD -gt 0 ]; then
+            echo "merge_to_staging=true" >> $GITHUB_ENV
+          fi
+          
+      - name: Create Pull Request to Staging
+        id: cpr
+        if: env.merge_to_staging == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.MERGE_MAIN_STAGING }}
+        run: |
+
+          echo "INFO createing the PR using gh cli"
+          PR_BODY="Auto Back Merge from main. Date: $(date +%FT%T)"
+          PR_TITLE="Auto Back Merge from main. Date: $(date +%FT%T)"
+          pr_create_out=$(gh pr create \
+                             --title "${PR_TITLE}" \
+                             --body "${PR_BODY}" \
+                             --base staging \
+                             --head main )
+          echo "pr_create_out=${pr_create_out}"
+          PR_NR=$(sed -E 's#(.*\/)([0-9]+)#\2#g' <<< "${pr_create_out}")
+          echo "pr_nr=${PR_NR}" >> "${GITHUB_OUTPUT}"
+          echo "pr_nr=${PR_NR}"
+
+          echo "INFO enable pull request auto merge"
+          gh pr merge --auto --merge "${PR_NR}"
+
+  # The github token approving the PR needs to be different from the one it creates it
+  # You have tp create a second github user that would approve the PR.
+      - name: Approve the PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.APPROVE_MAIN_STAGING }}
+          PR_NR: ${{ steps.cpr.outputs.pr_nr }}
+        run: |
+          set -eou pipefail
+
+          pwd
+          ls -la
+          echo "INFO the github token approving the PR needs to be different from the one it creates it"
+          gh pr review --approve "${PR_NR}"
+
