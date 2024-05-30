@@ -1,0 +1,10 @@
+# Saved ideas from Nix Flake book
+
+https://nixos-and-flakes.thiscute.world/nixos-with-flakes/nixos-with-flakes-enabled
+
+You can use the `nix repl command` to open a nix interactive environment
+
+Custom path to nix flaxes
+```bash
+sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
+```
