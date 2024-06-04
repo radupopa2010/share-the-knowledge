@@ -57,6 +57,17 @@ test connection with
 aws s3 ls --profile my-dev-profile
 ```
 
+```bash
+aws sso login
+# go through the worklow
+```
+
+if ssm is configured, use it to connect to the instance
+```bash
+aws ssm start-session --target i-instance-id123 --region us-east-1
+```
+
+
 ###### Get info about the account that is logged in
 ```
 aws iam list-account-aliases
