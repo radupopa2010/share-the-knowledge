@@ -65,6 +65,11 @@ aws sso login
 if ssm is configured, use it to connect to the instance
 ```bash
 aws ssm start-session --target i-instance-id123 --region us-east-1
+aws ssm start-session \
+     --target i-02864ba14bbe88154 \
+     --document-name AWS-StartInteractiveCommand \
+     --parameters command="bash -l" \
+     --region us-east-1
 ```
 
 
