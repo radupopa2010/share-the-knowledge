@@ -1,0 +1,7 @@
+
+Find files and sort by date (human redable)
+```
+find . -type f -exec stat -f "%m %N" {} + ]
+     | sort -n \
+     | awk '{ cmd="date -r " $1 " +\"%Y-%m-%d %H:%M:%S\""; cmd | getline formatted_date; close(cmd); print formatted_date, $2 }'
+```
