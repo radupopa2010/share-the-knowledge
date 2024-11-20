@@ -523,12 +523,12 @@ curl ipecho.net/plain
 
 Run curl with socks5 proxy
 ```
-curl --preproxy "127.0.0.1:1080"  -X GET "http://ads1.r3.07.laxa.gaikai.net:9090/provisioning/clusters/${cluster}/racks/${rack}/hosts/${host}" | jq
+curl --preproxy "127.0.0.1:1080"  -X GET "http://ads1.r3.07.laxa.acme.net:9090/provisioning/clusters/${cluster}/racks/${rack}/hosts/${host}" | jq
 ```
 
 Use curl to post JSON payload
 ```
-curl -X POST -H "Content-Type: application/json" -d @new-kura1.r8.01.fraa.gaikai.net.json <URL>
+curl -X POST -H "Content-Type: application/json" -d @new-kura1.r8.01.fraa.acme.net.json <URL>
 ```
 
 curl url encode 
@@ -1181,16 +1181,16 @@ sed - Delete line at line-number in file
 
 sed - Print matching pattern
 ```
-sed -n '/www2.r6.03.lona.gaikai.net/p' /home/rpopa/.ssh/known_hosts
-www2.r6.03.lona.gaikai.net,10.20.134.172 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGgsZOCI6kY1MMQbXGrDG4Ft4AtumaBmoDR3pleNhk5rTteJhq7j5xhDQGuCYyXoQYNhzLXvzp976DQZ5fmVna4=
+sed -n '/www2.r6.03.lona.acme.net/p' /home/rpopa/.ssh/known_hosts
+www2.r6.03.lona.acme.net,10.20.134.172 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGgsZOCI6kY1MMQbXGrDG4Ft4AtumaBmoDR3pleNhk5rTteJhq7j5xhDQGuCYyXoQYNhzLXvzp976DQZ5fmVna4=
 ```
 
 sed - delete matching pattern from file
 ```
 # first print the matching pattern like cmd above
 # then test the delete
-sed -n '/www2.r6.03.lona.gaikai.net/d' /home/rpopa/.ssh/known_hosts
-sed -in '/www2.r6.03.lona.gaikai.net/d' /home/rpopa/.ssh/known_hosts
+sed -n '/www2.r6.03.lona.acme.net/d' /home/rpopa/.ssh/known_hosts
+sed -in '/www2.r6.03.lona.acme.net/d' /home/rpopa/.ssh/known_hosts
 ```
 
 ```
@@ -1353,7 +1353,7 @@ https://www.linuxjournal.com/content/weekend-reading-ansible
 
 run ansible while being root
 ```
-ansible  kura1.r2.01.fraa.gaikai.net --user rpopa -m shell -a 'kura-cli status |grep "TKE Count" '
+ansible  kura1.r2.01.fraa.acme.net --user rpopa -m shell -a 'kura-cli status |grep "TKE Count" '
 ```
 
 mtr
@@ -1408,7 +1408,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 bastion1 ~ # iptables -D  input_dynamic 2
 ```
 
-gaikai
+acme
 ```
 function get_banned_ip {
   iptables -L  -v -n --line-numbers | grep DROP
@@ -1483,7 +1483,7 @@ EOF
 ```
 
 
-Connecting to gaikai vpn with pulse secure
+Connecting to acme vpn with pulse secure
 ```
 # 1. Install the package
 sudo dpkg -i ps-pulse-linux-9.0r2.0-b819-ubuntu-debian-64-bit-installer.deb
@@ -1654,7 +1654,7 @@ megacli -PDList -aAll | grep -e "Adapter" -e "Enclosure Device" -e "Slot Number"
 find disk info with smartctl
 ```
 smartctl --scan
-hostname -f; dmidecode -s 'system-serial-number'; smartctl -a /dev/bus/1 -d megaraid,17 mk2.r2.03.lona.gaikai.net
+hostname -f; dmidecode -s 'system-serial-number'; smartctl -a /dev/bus/1 -d megaraid,17 mk2.r2.03.lona.acme.net
 ```
 
 megacli - Check RAID rebuild
@@ -1700,7 +1700,7 @@ ldapsearch - how to search everything
 #  Get a dump of all ldap data
 #
 
-ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net  > all-ldap.data.txt
+ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net  > all-ldap.data.txt
 #          -x  Use simple authentication instead of SASL
 #          -H  ldapuri
 #              Specify URI(s) referring to the ldap server(s); a list of URI, separated by whitespace or  commas  is  expected;  only  the  proto‐
@@ -1713,44 +1713,44 @@ ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net  > all-ldap.data.txt
 #
 
 grep -e "Radu Popa" -e "rpopa" -n all-ldap.data.txt
-1056:dn: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-1058:mail: rpopa@gaikai.com
+1056:dn: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+1058:mail: rpopa@acme.com
 1065:cn: Radu Popa
 1075:uid: rpopa
 1077:homeDirectory: /home/rpopa
 1079:displayName: Radu Popa
-15877:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-15994:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-16196:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-16900:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-17225:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
-17948:member: cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US
+15877:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+15994:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+16196:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+16900:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+17225:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
+17948:member: cn=Radu Popa,ou=Staff,o=acme Inc,c=US
 
 #
 #  Give me all entries where member contains Radu Popa
 #
 
 # SQL equivalent: 
-# SELECT  dn cn description objectClass FROM all_ldap_data WHERE member='cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US'
-ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net  "member=cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US" dn cn description objectClass
+# SELECT  dn cn description objectClass FROM all_ldap_data WHERE member='cn=Radu Popa,ou=Staff,o=acme Inc,c=US'
+ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net  "member=cn=Radu Popa,ou=Staff,o=acme Inc,c=US" dn cn description objectClass
 # you can specify o branch of the DIT (Data Information Tree) with the -b option.
 # e.g
-ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net -b "ou=Access,o=Gaikai Inc,c=US"  "member=cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US" dn cn description objectClass 
+ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net -b "ou=Access,o=acme Inc,c=US"  "member=cn=Radu Popa,ou=Staff,o=acme Inc,c=US" dn cn description objectClass 
 #
 # The OR Filter
 # 
 # search for 2 filters: member=cn=Radu.. OR memberUid=rpopa
-ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net   "(|(member=cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US)(memberUid=rpopa))" dn cn description objectClass
+ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net   "(|(member=cn=Radu Popa,ou=Staff,o=acme Inc,c=US)(memberUid=rpopa))" dn cn description objectClass
 #
 # The AND filter + NOT
 #
 # give me all the entries where member=cn=Radu Popa and description does not contain "titan"
-ldapsearch -xH ldaps://ldap.lax-prod1.prod.gaikai.net "(&(!(description=*titan*))(member=cn=Radu Popa,ou=Staff,o=Gaikai Inc,c=US))" dn cn description objectClass
+ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net "(&(!(description=*titan*))(member=cn=Radu Popa,ou=Staff,o=acme Inc,c=US))" dn cn description objectClass
 ```
 
 how to test a branch of a conf package
 ```
-cd  /var/portage/repos/gaikai-private/app-upconf/salt-templates/
+cd  /var/portage/repos/acme-private/app-upconf/salt-templates/
 vi salt-templates-9999.ebuild
 # and edit
 GK_ORG=austin
