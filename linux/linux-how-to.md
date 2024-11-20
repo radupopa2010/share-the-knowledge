@@ -1,5 +1,7 @@
-autonomy, mastery and purpose 
 
+### Core values autonomy, mastery and purpose 
+
+### TORVALDS' RULES 
 -= TORVALDS' RULES =-
 1. Get the work done
 2. Do not let go
@@ -16,7 +18,7 @@ autonomy, mastery and purpose
 * Find your path
 * Earn respect
 
-one liners
+### one liners
 https://linuxcommandlibrary.com/basic/oneliners.html?mc_cid=bc40d3e140&mc_eid=56e794f883
 
 https://b-ok.cc/
@@ -26,27 +28,27 @@ https://nickjanetakis.com/blog/ = tips and tricks DEVOP + linux
 
 http://mywiki.wooledge.org/DotFiles = .bashrc, .profile, .bash_profile
 
-Rapidly invoke an editor to write a long, complex, or tricky command
+### Rapidly invoke an editor to write a long, complex, or tricky command
 ```
 ctrl-x e
 ```
 
-readig list
+### readig list
 https://gerlacdt.github.io/posts/effective-cli/
 
-yubi key edit  touch settings
+### yubi key edit  touch settings
 https://docs.yubico.com/software/yubikey/tools/ykman/OpenPGP_Commands.html#ykman-openpgp-keys-set-touch-options-key-policy
-https://www.notion.so/paritytechnologies/Yubikey-with-GPG-SSH-for-Linux-9313035b500b47ad8d4a87caf8642d2e
+https://www.notion.so/acmetechnologies/Yubikey-with-GPG-SSH-for-Linux-9313035b500b47ad8d4a87caf8642d2e
 ```
 ykman openpgp keys set-touch sig cached
 ```
 
-Unbuntu change dns
+### Unbuntu change dns
 https://www.baeldung.com/linux/resolve-conf-systemd-avahi  
 
 https://phoenixnap.com/kb/ubuntu-dns-nameservers
 
-Parity - dig not resolving  ci11.parity-vpn.parity.io
+- dig not resolving  ci11.acme-vpn.acme.io
 ```
 disable IPv6 from the network interface
 ```
@@ -59,16 +61,13 @@ systemd-resolve --status
 https://www.howtogeek.com/devops/how-to-set-dns-search-order-in-ubuntu-18-04-using-netplan/
 
 
-Add key to ssh-agnet
+### Add key to ssh-agnet
 ```
-
 ssh -i /home/radu/.ssh/google_compute_engine  radu@34.140.117.87
-
 ssh-add ~/.ssh/google_compute_engine
-
 ```
 
-envsubst  
+### envsubst  
 https://stackoverflow.com/questions/14155596/how-to-substitute-shell-variables-in-complex-text-files
 ```
 export VAR1='somevalue' VAR2='someothervalue'
@@ -77,53 +76,30 @@ MYVARS='$VAR1:$VAR2'
 envsubst "$MYVARS" <source.txt >destination.txt
 ```
 
-file in readonly mode even for root
+### file in readonly mode even for root
 https://askubuntu.com/questions/675296/changing-ownership-operation-not-permitted-even-as-root
 ```
 chattr -i /etc/hosts
 ```
 
-Copy passwords into clipboard
+### gopass Copy passwords into clipboard
 ```
 gopass --clip  personal/sudo
 ```
 
-find out which process is listening on port 5433
+### find out which process is listening on port 5433
 ```
 ss -ltnup 'sport = :5433'
 ```
 
-poster for Ruegamer
-https://www.ohmyprints.com/de/bild/American-Gothic-Grant-Wood/431816?size=45x55&mediumId=3&gclid=EAIaIQobChMIqqKP7rW57gIV8wyLCh2pVgz5EAQYASABEgJAkvD_BwE# 
 
-youtube download music  both from below work
-https://github.com/iawia002/lux#installation
-```
-# get info about what output you can download
-     [140]  -------------------
-     Quality:         audio/mp4; codecs="mp4a.40.2"
-     Size:            78.80 MiB (82625103 Bytes)
-     # download with: lux -f 140
-
-lux -i "https://www.youtube.com/watch?v=yoRySSq634o"
-
-# download mp4 audio
-lux -f 140 "https://www.youtube.com/watch?v=yoRySSq634o"
-# download playlist 
-lux --multi-thread -f 140 -p "https://www.youtube.com/playlist?list=PLUnUwT_FN6u1I8XsNv_OHpIr0tiC6mSlA
-```
-
-https://github.com/kkdai/youtube
-```
-
-```
-gpg yubi keylist keys
+### gpg yubi keylist keys
 ```
 gpg2 --list-secret-keys
 gpg2 --list-keys
 ```
 
-here doc create script
+### here doc create script
 https://stackoverflow.com/questions/2953081/how-can-i-write-a-heredoc-to-a-file-in-bash-script#2954835
 ```
 'EOF' = do NOT interpret variables or commands in here doc
@@ -140,7 +116,7 @@ EOF
 
 ```
 
-Create `readonly.sql` to define a role permission in SQL ; use tee to create docs 
+### Create `readonly.sql` to define a role permission in SQL ; use tee to create docs 
 ```
 $ tee readonly.sql <<EOF
 CREATE ROLE "{{name}}" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';
@@ -149,7 +125,7 @@ EOF
 ```
 
 
-How to apt
+### How to `apt`
 https://www.cyberciti.biz/faq/ubuntu-lts-debian-linux-apt-command-examples/
 ```
 Syntax
@@ -181,7 +157,7 @@ apt purge <pkg>
 apt list
 ```
 
-apt - How do I check the origin and archive of a package?
+### apt - How do I check the origin and archive of a package?
 ```
 
 ls -l /var/lib/apt/lists/*Rel*
@@ -234,13 +210,13 @@ Determination of Package Version and Distribution Properties
 
 ```
 
-How do I find the package that provides a file?
+### How do I find the package that provides a file?
 ```
 $ dpkg -S /bin/ls
 coreutils: /bin/ls
 ```
 
-search info about a package (debian handbook)
+### search info about a package (debian handbook)
 ```
 apt show prometheus-node-exporter-collectors 
 
@@ -263,28 +239,29 @@ Description: Supplemental textfile collector scripts for Prometheus node_exporte
  Prometheus node_exporter, or process output from external binaries into
  the Prometheus metrics format, to be exposed by node_exporter.
 ```
-search for text inside files in a directory
+
+### search for text inside files in a directory
 ```
 grep -rnw <directory'> -e "pattern"
 ```
 
-show files that contain patern
+### show files that contain patern
 ```
 grep -lr patern  /location/*
 ```
 
-How do I grep for multiple patterns?
+### How do I grep for multiple patterns?
 ```
 ls -l | egrep q 'dev|home|run|boot'
 ```
 
-Grep pattern1 and pattern2 
+### Grep pattern1 and pattern2 
 ```
 grep -E 'pattern1.*pattern2'
 ```
 
 
-You can also find out which package a particular file belongs to:
+### You can also find out which package a particular file belongs to:
 ```
 # redhat
 rpm -qf pyton
@@ -293,17 +270,17 @@ rpm -qf pyton
 dpkg-query -S /etc/apache2
 ```
 
-What is the difference between modify and change for a file in stats command
+### What is the difference between modify and change for a file in stats command
 Access - the last time the file was read
 Modify - the last time the file was modified (content has been modified)
 Change - the last time meta data of the file was changed (e.g. permissions)
 
-See Linux release
+### See Linux release
 ```
 lsb_release -a
 ```
 
-How to uninstall postgresql from ubuntu server
+### How to uninstall postgresql from ubuntu server
 ```
 sudo apt-get --purge remove postgresql\*
 # Once all PostgreSQL packages have been removed:
@@ -317,13 +294,13 @@ dpkg -l | grep postgres
 ```
 
 
-change gnome-terminal title
+### change gnome-terminal title
 PROMPT_COMMAND='echo -ne "\033]0;SOME TITLE HERE\007"'
 
 create a new user
 adduser <new>
 
-How To Use chmod and chown Command
+### How To Use chmod and chown Command
 http://www.cyberciti.biz/faq/how-to-use-chmod-and-chown-command/
 ```
 chown owner-user file
@@ -331,7 +308,7 @@ chown vivek demo.txt
 ```
 
 
-Full Synchronize 2 directories
+### Full Synchronize 2 directories
 ```
 # first check with -n flag
 rsync -avn --exclude=".hg*" --delete <source> <destination>
@@ -339,7 +316,7 @@ rsync -avn --exclude=".hg*" --delete <source> <destination>
 rsync -av --exclude=".hg*" --delete <source> <destination>
 ```
 
-How to rsync with sudo (pull)
+#### How to rsync with sudo (pull)
 https://askubuntu.com/questions/719439/using-rsync-with-sudo-on-the-destination-machine
 
 On the source machine mk1
@@ -374,27 +351,25 @@ sudo rsync -avzn --delete --rsync-path='sudo rsync'  ${username}@mk1.<fqdn>:/srv
 sudo rsync -avz --delete --rsync-path='sudo rsync'   ${username}@mk1.<fqdn>:/srv/torrent/games/ /srv/torrent/games | tee history-rsync-${username}.txt
 ```
 
-Find files and sort by size, human readable
+### Find files and sort by size, human readable
 ```
 find . -type f -exec du -h '{}'  ';' | sort -rh
 ```
 
-Find files and sort by size
-```
+### Find files and sort by size
+```bash
 find . -type f -printf "%s\t%p\n" | sort -rn
   %p File's name.
   %s File's size in bytes.
 ```
 
 
-du
-http://www.linfo.org/du.html
-How to scan a folder recursively and find the largest files in the folder
-```
-$ du -ah <dir>  | sort -rh
+### How to scan a folder recursively and find the largest files in the folder
+```bash
+du -ah <dir>  | sort -rh
 ```
 
-Find the top space dir hogs
+### Find the top space dir hogs
 cd <target_dir>
 ```
 du -sh * | sort -rh
@@ -403,12 +378,12 @@ du -sh * | sort -rh
       -h, --human-readable
 
 
-Find files and sort by size
-```
+### Find files and sort by size
+```bash
 ls -lSh
 ```
 
-Find and xargs and mv or cp 
+### Find and xargs and mv or cp 
 ```
 find /tmp/ -ctime -1 -name 'x*' -print0 | xargs -r0 mv -t ~/play/
 ```
@@ -416,12 +391,12 @@ find /tmp/ -ctime -1 -name 'x*' -print0 | xargs -r0 mv -t ~/play/
       -t (--target) option is GNU specific. -print0, -r, -0
 https://stackoverflow.com/questions/13899746/use-xargs-to-mv-a-directory-from-find-results-into-another-directory
 
-Find files using regexp
+### Find files using regexp
 ```
 find /home/archive/3e/ -regextype posix-egrep -regex '.*\/[0-9]{4}\/[0-9]{1,2}\/[0-9]{1,2}$'
 ```
 
-Use screen
+### Use screen
   - Start screen 
 screen -> ctrl + a -> c (create)  ||  screen -S <session_name>
   - Switching between windows
@@ -440,7 +415,7 @@ Now, you can scroll up/down and look at your data
 https://stackoverflow.com/questions/16111548/how-to-copy-the-gnu-screen-copy-buffer-to-the-clipboard#16286619
     1. Copy the
 
-See number of CPUs
+#### See number of CPUs
 lscpu
 ```
 lscpu | grep -E '^Thread|^Core|^Socket|^CPU\('  
@@ -454,7 +429,7 @@ enable CPU online
 ```
 echo 1 > /sys/devices/system/cpu/cpu3/online
 ```
-How to fix "ssh can't log in"
+### How to fix "ssh can't log in"
 ```
 vi /etc/ssh/sshd_config  (add the <user> to AllowGroups
 /etc/init.d/ssh restart
@@ -462,18 +437,19 @@ vi /etc/ssh/sshd_config  (add the <user> to AllowGroups
 
 https://engineering.fb.com/security/scalable-and-secure-access-with-ssh/
 
-Fix ssh - warning: remote host identification has changed
+### Fix ssh - warning: remote host identification has changed
 ```
 ssh-keygen -f "/home/radu/.ssh/known_hosts" -R 172.18.5.146
 ```
 
-How to find creation date for a folder
+### How to find creation date for a folder
 UNIX doesn't support creation date.
 last time the inode data was changed, which is as close as you can get:
 ```
 ls -ldc dirname
 ```
-Keeping Some Output, Discarding the Rest (from bash cookbook)
+
+### Keeping Some Output, Discarding the Rest (from bash cookbook)
 Fields are delineated by whitespace
 The field $0 represents the entire line of input.
 NF - built-in variable called that holds the number of fields found on the current line
@@ -483,14 +459,14 @@ awk '{print $1}' myinput.file
 ls -l | awk '{print $1, $NF}'
 ```
 
-How to print third column to last column?
+### How to print third column to last column?
 ```
 awk '{for (i=1; i<=NF-2; i++) $i = $(i+2); NF-=2; print}' logfile
 # or
 cut -f 3- INPUTFILE
 ```
 
-Awk change input field separator and output field separator
+### Awk change input field separator and output field separator
 ```
 awk -F '\t' -v OFS='.' '{print $3, $5, $NF}'
 #   -F use this as input filed separator
@@ -500,47 +476,47 @@ awk -F '\t' -v OFS='.' '{print $3, $5, $NF}'
               values are available to the BEGIN rule of an AWK program.
 ```
 
-Add a new user to existing group
+### Add a new user to existing group
 ```
 usermod -aG <existing_group> <new_user>
 ```
 
-Remove user from group.
+### Remove user from group.
 E. g. :  To keep membership for sales only group (remove user tom from printer group)
 ```
 usermod -G sales tom
 ```
 
-Show gropus for a user
-```
+### Show gropus for a user
+```bash
 groups <user>
 ```
 
-Find external IP address from terminal
+### Find external IP address from terminal
 ```
 curl ipecho.net/plain
 ```
 
-Run curl with socks5 proxy
+### Run curl with socks5 proxy
 ```
 curl --preproxy "127.0.0.1:1080"  -X GET "http://ads1.r3.07.laxa.acme.net:9090/provisioning/clusters/${cluster}/racks/${rack}/hosts/${host}" | jq
 ```
 
-Use curl to post JSON payload
+### Use curl to post JSON payload
 ```
 curl -X POST -H "Content-Type: application/json" -d @new-kura1.r8.01.fraa.acme.net.json <URL>
 ```
 
-curl url encode 
-```
+### curl url encode 
+```bash
 curl \
     --data-urlencode "paramName=value" \
     --data-urlencode "secondParam=value" \
     http://example.com
 ```
 
-curl download file
-```
+### curl download file
+```bash
  # saves it to myfile.txt
 curl http://www.example.com/data.txt -o myfile.txt -L
 
@@ -559,7 +535,7 @@ curl http://www.example.com/data.txt -O -J -L
 # -L Follow redirects
 ```
 
-curl send json data no single quotes needed
+### curl send json data no single quotes needed
 ```
     cat <<EOF | curl -X PUT \
       localhost:8080/api/v1/namespaces/test/finalize \
@@ -578,7 +554,7 @@ curl send json data no single quotes needed
     EOF
 ```
 
-Run Command As Another User
+### Run Command As Another User
 ```
 su - oracle -c 'ulimit -aHS'
 sudo -H -u otheruser bash -c 'command'
@@ -586,31 +562,32 @@ sudo -H -u otheruser bash -c 'command'
     -u (user)
 ```
 
-See distribution
+### See distribution
 https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/
 a] /etc/*-release file.
 b] lsb_release command.
 c] /proc/version file.
 
-How Do I Find Out My Kernel Version?
+### How Do I Find Out My Kernel Version?
 ```
 uname -a
 ```
 
-Find Out What Partition a File Belongs To
+### Find Out What Partition a File Belongs To
 https://www.cyberciti.biz/faq/linux-unix-command-findout-on-which-partition-file-directory-exits/
 ```
 df -T /usr/local/
 ```
-Cron job every 4 hours
-0 */4 * * *
+
+### Cron job every 4 hours
+`0 */4 * * *`
 
 
-Edit the terminal prompt
-vi /etc/bash.bashrc
+### Edit the terminal prompt
+vi `/etc/bash.bashrc`
 edit PS1 variable. If hostname doesn't apear, replace \h with $(hostname)
 
-Common Linux log files names and usage
+### Common Linux log files names and usage
 /var/log/messages : General message and system related stuff
 /var/log/auth.log : Authenication logs
 /var/log/kern.log : Kernel logs
@@ -625,10 +602,10 @@ Common Linux log files names and usage
 /var/log/utmp or /var/log/wtmp : Login records file
 /var/log/yum.log : Yum command log file.
 
-Verify that network interface device is up and running
+### Verify that network interface device is up and running
 ifconfig -s
 
-Memory monitoring
+### Memory monitoring
 - quick view of memory status
 ```
 free -m or free -h
@@ -649,11 +626,11 @@ vmstat 2 - for getting a high-level view of how often the kernel is swapping pag
 
 vmstat -aS M #see the "inactive" column for a rough "free" idea.
 
-locate the source of your memory-related problems (leaks) 
+### locate the source of your memory-related problems (leaks) 
 purify and  valgrind  
 https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
 
-Logrotate
+### Logrotate
 https://www.linode.com/docs/uptime/logs/use-logrotate-to-manage-log-files
 https://linuxconfig.org/logrotate
 Most configuration of log rotation does not occur in the /etc/logrotate.conf file, but rather in files located in the /etc/logrotate.d directory
@@ -718,18 +695,19 @@ Pathname Expansion Of Hidden Files
 ls -d .* | less  
 echo .[!.]*  
 
-GLOBING -  do not match pattern
+### GLOBING -  do not match pattern
 1)  enable the extglob option
 shopt -s extglob
 2)  example: do not match "file.sh"
 ls !(*.sh)
-PROCESSES
+
+### PROCESSES
 Viewing Processes
 TTY    short for “Teletype,” and refers to the controlling terminal for the process.
 The presence of a “?” in the TTY column indicates no controlling terminal.
 TIME  the amount of CPU time consumed by the process  [DD-]hh:mm:ss format
 
-TOP
+### TOP
   SORTING of task window
   For compatibility, this top supports most of the former top sort keys. Since this is primarily a service to former top users, these commands do not appear on any help screen.
   command sorted-field supported
@@ -739,12 +717,13 @@ TOP
   P   %CPU Yes
   T   TIME+ Yes    minutes:seconds.hundredths
                                 bsdtime TIME accumulated cpu time, user + system. The display format is usually "MMM:SS", but can be shifted to the right                                 if the process used more than 999 minutes of cpu time.
-Check when the process started
+
+###Check when the process started
 https://unix.stackexchange.com/questions/53270/what-units-of-time-does-top-use 
 The PID file creation date is when the process started:
 ls -ld /proc/pid   (So for process 2303 it would be: ls -ld /proc/2303 )
 
-Customizing The Prompt
+### Customizing The Prompt
 Adding Color
 Unix and Unix-like systems have two rather complex subsystems to deal with the babel of terminal control (called termcap and terminfo). Character color is controlled by sending the terminal emulator an ANSI escape code embedded in the stream of characters to be displayed. The \[ and \] sequences are used to encapsulate non-printing characters.
 
@@ -754,13 +733,9 @@ code to set the text color to normal (attribute = 0), black text is:
 
 
 
+### Networking
 
-
-
-
-Networking
-
-add routes
+### add routes
 ```
 #!/bin/bash
 host -v sie.okta.com \
@@ -768,59 +743,44 @@ host -v sie.okta.com \
     | xargs -n1 -I {} sudo ip route add {} dev tun0
 ```
 
-Routes and the Kernel Routing Table
+### Routes and the Kernel Routing Table
+- can directly reach hosts on local network: 10.23.2.0 / 24
+- can reach hosts on internet via the router at 10.23.2.1
+- Destination: 0.0.0.0 = default route
+- Destination: 0.0.0.0, Gateway 10.23.2.1 = default gateway   
+- Flags: U = ip, G = gateway
 
-
-
-    - can directly reach hosts on local network: 10.23.2.0 / 24
-    - can reach hosts on internet via the router at 10.23.2.1
-    - Destination: 0.0.0.0 = default route
-    - Destination: 0.0.0.0, Gateway 10.23.2.1 = default gateway   
-    - Flags: U = ip, G = gateway
-
-Network interface configuration
+### Network interface configuration
 When the interface is up, you’d be ready to add routes, which is typically just a matter of setting the default gateway, like this:
 route add default gw <gw-address>
 
 
-
-
-
-
-
-
-
-
-
-To remove a default gateway
+### To remove a default gateway
 route del -net default
 
-Add traffic for 192.168.45.0 to router at 10.23.2.44:
+### Add traffic for 192.168.45.0 to router at 10.23.2.44:
 route add -net 192.168.45.0/24 gw 10.23.2.44
 
-Delete a route
+### Delete a route
 route del -net 192.168.45.0/24
 
-Boot-Activated Network Configuration
+### Boot-Activated Network Configuration
 Ubuntu, for example, uses the ifupdown suite with configuration files in
 /etc/network
 and Fedora uses its own set of scripts with configuration in
 /etc/sysconfig/network-scripts
 
-reset network after editing /etc/network/interfaces
+### reset network after editing /etc/network/interfaces
 sudo ifdown eth0 && ifup eth0
 
-restart the network service.
+### restart the network service.
 /etc/init.d/network restart
 
-install mercurial
-sudo apt-get install mercurial
-
-Redhat
-Static Network Settings
+## Redhat
+### Static Network Settings
 /etc/sysconfig/network-scripts/
 
-NFS Client Configuration To Mount NFS Share
+### NFS Client Configuration To Mount NFS Share
 https://www.cyberciti.biz/tips/ubuntu-linux-nfs-client-configuration-to-mount-nfs-share.html
 
   NFS  - Make sure showmount is installed
@@ -856,41 +816,46 @@ Script locations
   any user - /usr/local/bin/<script.sh>
 ```
 
-Filesystem Hierarchy Standard
+### Filesystem Hierarchy Standard
 http://www.pathname.com/fhs/pub/fhs-2.3.html
 
-How to determine which process is creating a file?
+### How to determine which process is creating a file?
 https://unix.stackexchange.com/questions/13776/how-to-determine-which-process-is-creating-a-file
-lsof /path/to/file
+`lsof /path/to/file`
 or
-auditctl -w /path/to/file
+`auditctl -w /path/to/file`
 or
-loggedfs -l /path/to/log_file -c /path/to/config.xml /path/to/directory
-tail -f /path/to/log_file
+`loggedfs -l /path/to/log_file -c /path/to/config.xml /path/to/directory`
+`tail -f /path/to/log_file`
 
-Mail - send email via command line
+### Mail - send email via command line
 https://tecadmin.net/ways-to-send-email-from-linux-command-line/
+```bash
 mail -s "This is the subject" someone@example.com
 echo "This is the body of the email" | mail -s "This is the subject line" rpo@3e.eu
+```
 
-
-Mail - find queue size
+### Mail - find queue size
+```bash
 mailq or postqueue -p o
 Count 
 find /var/spool/postfix/deferred -type f | wc -l
+```
 
-Mail -Print a particular message, by ID (you can see the ID along in mailq's output)
+### Mail -Print a particular message, by ID (you can see the ID along in mailq's output)
+```bash
 postcat -vq [message-id] - 
+```
 
-Mail - Process the queued mail immediately
-postqueue -f 
+### Mail - Process the queued mail immediately
+```postqueue -f ```
 
-Mail - delete queue
+### Mail - delete queue
 https://www.cyberciti.biz/tips/howto-postfix-flush-mail-queue.html
-postsuper -d ALL
+`postsuper -d ALL`
 
 
-How to extend a partition in LVM
+### How to extend a partition in LVM
 1.     See if LVM is used:
 pvdisplay   or  lvdisplay 
 2.     Show information about volumes
@@ -904,36 +869,36 @@ df -Th
 resize2fs /dev/myvg/homevol
 
 
-How to change keyboard layout
+### How to change keyboard layout
 1) dpkg-reconfigure keyboard-configuration
 2) setupcon
 
-How to list installed packages
+### How to list installed packages
 https://askubuntu.com/questions/17823/how-to-list-all-installed-packages
 dpkg --get-selections
 
-Find first n files in a directory with a large number of files:
+### Find first n files in a directory with a large number of files:
 Explication: the find command does get terminated once head has printed the first n files
 find . | head -20
 
-Strange characters appearing when I use the Ctrl and Arrow keys to navigate
+### Strange characters appearing when I use the Ctrl and Arrow keys to navigate
 https://askubuntu.com/questions/53556/strange-characters-appearing-when-i-use-the-ctrl-and-arrow-keys-to-navigate
 
 The kernel  generates debugging output that you can view with 
 dmesg
 
-dhcp server see leases
+### dhcp server see leases
 https://askubuntu.com/questions/219609/how-do-i-show-active-dhcp-leases
-cat /var/lib/dhcp/dhcpd.leases
+`cat /var/lib/dhcp/dhcpd.leases`
 
-Force DHCP Client (dhclient) to Renew IP Address
+### Force DHCP Client (dhclient) to Renew IP Address
 https://www.cyberciti.biz/faq/howto-linux-renew-dhcp-client-ip-address/
 1. releases the current lease
    dhclient -r
 2. obtain fresh IP:
    dhclient
 
-Enable SSH root login on Debian Linux Server
+### Enable SSH root login on Debian Linux Server
 https://linuxconfig.org/enable-ssh-root-login-on-debian-linux-server
 vi /etc/ssh/sshd_config
 FROM:
@@ -945,63 +910,75 @@ PermitRootLogin yes
 https://askubuntu.com/questions/89710/how-do-i-free-up-more-space-in-boot
 https://mintguide.org/system/622-purge-old-kernels-safe-way-to-remove-old-kernels.html
 if the kernel was install automatically or via Update Manager
+```bash
 purge-old-kernels --keep 3 -qy
 apt-get autoremove
 apt-get autoclean
+```
 To list all installed kernels, run:
+```bash
 dpkg -l 'linux-image-*' | grep ii
+```
 
-
-/usr is full
+### /usr is full
 https://serverfault.com/questions/87341/ubuntu-usr-is-full-up-recommend-anything-in-there-i-can-delete
+```bash
 mkdir -p /home/share/doc
 cp -a /usr/share/doc/  /home/share/
 rmdir /usr/share/doc
 ln -sfn /home/usr/share/doc /usr/share/doc
-
-Determine executable from PID
-https://unix.stackexchange.com/questions/27893/if-i-see-a-process-running-using-ps-how-can-i-find-the-executable
-cat /proc/<PID>/cmdline
 ```
+
+### Determine executable from PID
+https://unix.stackexchange.com/questions/27893/if-i-see-a-process-running-using-ps-how-can-i-find-the-executable
+```
+cat /proc/<PID>/cmdline
+
 cat /proc/21491/cmdline 
 /usr/bin/prometheus-node-exporter--collector.diskstats.ignored-devices=^(ram|loop|fd)d+$--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run|var/lib/docker)($|/)--collector.textfile.directory=/var/lib/prometheus/node-exporter--no-collector.bonding--no-collector.fibrechannel--no-collector.ipvs--no-collector.nfs--no-collector.nfsd--no-collector.rapl--no-collector.zfs--collector.netdev.device-exclude=^lo$--no-collector.hwmon--no-collector.infiniband--no-collector.mdadm--web.listen-address=0.0.0.0:9100root@testlab-runne
 ```
 
-How to display network traffic in the terminal?
+### How to display network traffic in the terminal?
 https://askubuntu.com/questions/257263/how-to-display-network-traffic-in-the-terminal
+```
 bmon
 tcptrack
 iftop
+```
 
-How to detect network loss
+### How to detect network loss
+```
 mtr <10.0.1.205>
+```
 
-tcpdump - how to:
+### tcpdump - how to:
 https://danielmiessler.com/study/tcpdump/
 
-Rsyslog- troubleshooting
+### Rsyslog- troubleshooting
 https://www.loggly.com/docs/troubleshooting-rsyslog/
 
-Rsyslog  - How to Configure Rsyslog with Any Log File
+### Rsyslog  - How to Configure Rsyslog with Any Log File
 https://blog.rapid7.com/2013/12/19/how-to-configure-rsyslog-with-any-log-file-agents-bad-no-agents-good
 
-Rsyslog - How can I check the config?
+### Rsyslog - How can I check the config?
 https://www.loggly.com/docs/troubleshooting-rsyslog/
+```
 rsyslogd -N1
+```
 
-Rsyslog - stop
+### Rsyslog - stop
 ```
 systemctl stop syslog.socket rsyslog.service
 ```
 
 
-Rsyslog - debug
+### Rsyslog - debug
 https://www.experts-exchange.com/questions/27511414/Rsyslog-State-Files-not-being-created.html
 ```
 strace -f rsyslogd -c5 -dn > logfile 2>tracefile
 ```
 
-Rsyslog - state files not saved:
+### Rsyslog - state files not saved:
 https://serverfault.com/questions/885754/how-to-debug-the-rsyslog-error-no-state-file-path-to-statefile-exists-for-p
 PersistStateInterval="10" must be sent in every input(...) like below
 input(type="imfile"
@@ -1022,57 +999,52 @@ $InputFileFacility local3
 $InputRunFileMonitor
 $PersistStateInterval 10
 
-Sending logs on switches
-http://stuartconnections.com/products/Computers/Systems/Server/Switches/Dell_PowerConnect_3348/Command_Line_Interface_Guide/syslog.htm
-
-Troubleshoot unomaly
-# on unomaly host, see if server is sending logs
-tcpdump -v src 172.18.5.142
-
-FTP - automate ftp host.com
+### FTP - automate ftp host.com
 https://superuser.com/questions/396594/login-with-linux-ftp-username-and-password
-cat machine data.3esynaptiq.com login YOUR_LOGIN_USER password SECRET_PASSWORD > ~/.NETRC
-ftp data.3esynaptiq.com
+```
+cat machine data.acme.com login YOUR_LOGIN_USER password SECRET_PASSWORD > ~/.NETRC
+ftp data.acme.com
 pas
 put FILE_NAME
 FTP - send files to ftp using curl
 curl -u USER:PASSWORD -T FILE ftp://server/dir/file
+```
 
-FTP - Recover the FTP password via TCPDUMP
+### FTP - Recover the FTP password via TCPDUMP
 https://networkingnotesblog.wordpress.com/2017/03/16/recover-the-ftp-password-via-tcpdump/
 
-Find out if you ssh-ed in a vm or a physical server
+### Find out if you ssh-ed in a vm or a physical server
 http://www.golinuxhub.com/2014/06/how-do-you-check-machine-is-physical-or.html
 ```
 dmidecode -s system-product-name
-```
 
-```
 # get serial number for
 sudo dmidecode -s chassis-serial-number
 ```
 
 
 
-Debian - Get rid of useless configuration files
+### Debian - Get rid of useless configuration files
 https://raphaelhertzog.com/2011/01/31/debian-cleanup-tip-1-get-rid-of-useless-configuration-files 
 
-Mastering Debian and Ubuntu
+### Mastering Debian and Ubuntu
 https://raphaelhertzog.com/mastering-debian/
 
-How To Uninstall puppet
-http://installion.co.uk/ubuntu/vivid/main/p/puppet/uninstall/index.html/
-apt-get remove puppet
-# Uninstall puppet and its dependencies
 
-Compare 2 directors and find the identical files
+### Compare 2 directors and find the identical files
+```bash
 diff -rs dir1 dir2 | grep identical
+```
 
-Networking - identify free / used IPs on a network:
+### Networking - identify free / used IPs on a network:
 https://stackoverflow.com/questions/13669585/how-to-get-a-list-of-all-valid-ip-addresses-in-a-local-network
+```bash
 nmap -sP 192.168.1.*
+```
 # or
+```bash
 nmap -sP 172.18.5.129/25
+```
 # or
 https://serverfault.com/questions/586714/nmap-find-free-ips-from-the-range
 ```
@@ -1081,12 +1053,12 @@ nmap -v -sn -n 192.168.1.0/24 -oG - | awk '/Status: Down/{print $2}'
 for ip in 172.18.5.{129..254}; do  { ping -c 1 -W 1 $ip ; } &> /dev/null || echo $ip  & done | sort
 ```
 
-nmap - scan for specific port 9121
+### nmap - scan for specific port 9121
 ```
 nmap -p 9121 10.1.2.17
 ```
 
-See network cards drivers
+### See network cards drivers
 ```
 for f in /sys/class/net/*; do
     dev=$(basename $f)
@@ -1101,38 +1073,39 @@ done
 ```
 
 
-Using "ip" command
+### Using "ip" command
 https://www.fosslinux.com/3027/how-to-find-ip-and-mac-address-by-command-line-in-linux.htm
 Show IP address of an interface
 ```
 ip addr show eth0
 ```
 
-Show MAC address of an interface
+### Show MAC address of an interface
 ```
 ip link show
 ```
 
-Bring interface up with ip command
+### Bring interface up with ip command
 ```
 # ip link set dev <interface> up
 ```
-Rename network interface
+
+### Rename network interface
 ```
 ip link set peth0 name eth0
 ```
 
-Speedup scp
+### Speedup scp
 ```
 root@sp-leo01-sbcl:/home/leo# ssh root@sp-leo01 'cd /home/leo; tar cvf - * ' | (cd /home/leo; tar xvf -)
 ```
 
-CURL - download and extract 
+### CURL - download and extract 
 ```
 curl -L https://github.com/variantdev/vals/releases/download/v0.15.0/vals_0.15.0_linux_amd64.tar.gz | tar -xz
 ```
 
-Debug finding libraries
+### Debug finding libraries
 LD_DEBUG=libs /opt/leo/bin/leonardo start
 
 Systemd configuration files
@@ -1145,8 +1118,10 @@ strace
 https://www.tecmint.com/strace-commands-for-troubleshooting-and-debugging-linux/
 https://www.thegeekstuff.com/2011/11/strace-examples/
 
-# profile a process
+### profile a process
+```
 strace -r -f -p 15757 -o statistics.txt
+```
 
 seful strace switches
 ```
@@ -1156,17 +1131,17 @@ seful strace switches
 -T (to get time spent in system calls)
 ```
 
-Creating simlynks
+### Creating simlynks
 ```
 ln -s "to-here" <- "from-here"
 ```
 
-sed -  search and replace in a list of file
+### sed -  search and replace in a list of file
 ```
 sed -i 's/vpn-servers/vpn_servers/g' $(grep 'vpn-servers' -rl --exclude-dir=.git  | tr '\n' ' ')
 ```
 
-sed - Print only matching group
+### sed - Print only matching group
 https://stackoverflow.com/questions/17511639/sed-print-only-matching-group#17511700
 ```
 echo "foo bar <foo> bla 1 2 3.4" |
@@ -1177,15 +1152,15 @@ grep -o
 # 2020-11-19: it's better to split the line in 3 groups and then print only your wish 
  sed -nE 's/(.*)datetime="(.*)" (.*)/\2/p'
 ```
-sed - Delete line at line-number in file
+### sed - Delete line at line-number in file
 
-sed - Print matching pattern
+### sed - Print matching pattern
 ```
 sed -n '/www2.r6.03.lona.acme.net/p' /home/rpopa/.ssh/known_hosts
 www2.r6.03.lona.acme.net,10.20.134.172 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGgsZOCI6kY1MMQbXGrDG4Ft4AtumaBmoDR3pleNhk5rTteJhq7j5xhDQGuCYyXoQYNhzLXvzp976DQZ5fmVna4=
 ```
 
-sed - delete matching pattern from file
+### sed - delete matching pattern from file
 ```
 # first print the matching pattern like cmd above
 # then test the delete
@@ -1197,17 +1172,17 @@ sed -in '/www2.r6.03.lona.acme.net/d' /home/rpopa/.ssh/known_hosts
 sed -i -e '31d' /home/radu/.ssh/known_hosts
 ```
 
-Search and replace in file
+### Search and replace in file
 ```
 sed -i -E 's/(.*-F *)("ref=v[0-9]*")/\1 "ref=v4"/' substrate_trigger_pipeline.sh
 ```
 
-Search and replace in file on macbook; pattern in multiple files
+### Search and replace in file on macbook; pattern in multiple files
 ```
 fgrep 'asdasd' -rl | head -1 | while read -r fname ; do echo working wiking with $fname ; sed -i '' -E 's/(.*)(asdasd)(.*)/\1<secret_pass>\3/g'  "${fname}"  ; done
 ```
 
-sed search and replace, but line mus contain another  pattern before the substituion
+### sed search and replace, but line mus contain another  pattern before the substituion
 ```
 radu@radu-x1-carbon:~/Music/coding-2021-09-03$ echo 'some data myself 1.2.3.4' | sed  -e "/myself/ s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/FOUND_IP/"
 some data myself FOUND_IP
@@ -1217,7 +1192,7 @@ radu@radu-x1-carbon:~/Music/coding-2021-09-03$ echo 'some data other 1.2.3.4' | 
 some data other 1.2.3.4
 ```
 
-Test web-server connectivity with netcat
+### Test web-server connectivity with netcat
 https://linuxhandbook.com/nc-command/ 
 ```
 netcat -vz sp-pmm01 80
@@ -1226,12 +1201,12 @@ nc -v -z -n localhost 9252
 curl --connect-timeout 1 -s 10.117.128.76:8000 ; echo $?
 ```
 
-Test connectivity with curl
+### Test connectivity with curl
 ```
 curl -v telnet://127.0.0.1:22
 ```
 
-Linux List The Open Ports And The Process That Owns Them
+### Linux List The Open Ports And The Process That Owns Them
 read this https://linuxacademy.com/blog/linux/netstat-network-analysis-and-troubleshooting-explained/
 ```
 sudo lsof -i
@@ -1239,7 +1214,7 @@ sudo netstat -lptu
 sudo netstat -tuna
 ```
 
-Netstat without netstat for containers 
+### Netstat without netstat for containers 
 https://staaldraad.github.io/2017/12/20/netstat-without-netstat/
 ```
 grep -v "rem_address" /proc/net/tcp  | awk 'function hextodec(str,ret,n,i,k,c){
@@ -1254,49 +1229,46 @@ grep -v "rem_address" /proc/net/tcp  | awk 'function hextodec(str,ret,n,i,k,c){
 } {x=hextodec(substr($2,index($2,":")-2,2)); for (i=5; i>0; i-=2) x = x"."hextodec(substr($2,i,2))}{print x":"hextodec(substr($2,index($2,":")+1,4))}'
 ```
 
-Remove ssh key
+### Remove ssh key
  remove with:
 ```
 ssh-keygen -f "/home/radu/.ssh/known_hosts" -R sp-leo02
 ```
-ip addr flush dev eth1
 
-Apt add repository
+### Apt add repository
 sudo add-apt-repository ppa:alexlarsson/flatpak
 
-Install evolution with exchange server
-https://www.2daygeek.com/install-evolution-email-client-on-ubuntu-debian-mint-centos-rhel-fedora-opensuse-mageia-manjaro-archlinux/
-sudo apt install p evolution-ews
 
-Copy text from terminal (file) to system clipboard
+### Copy text from terminal (file) to system clipboard
 ```
 xclip -sel clip < ~/.ssh/id_rsa.pub
 ```
 
 
-Scripts location:
+### Scripts location:
 https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local
 Please refer to the Filesystem Hierarchy Standard (FHS) for Linux for this.
 - /bin : For binaries usable before the /usr partition is mounted. This is used for trivial binaries used in the very early boot stage or ones that you need to have available in booting single-user mode. Think of binaries like cat, ls, etc.
 - /sbin : Same, but for scripts with superuser (root) privileges required.
 - /usr/bin : Same as first, but for general system-wide binaries.
 /usr/sbin : Same as above, but for scripts with superuser (root) privileges required
-Make bookable Windows usb from linux gparted os/
+
+### Make bookable Windows usb from linux gparted os/
 https://www.cyberciti.biz/faq/create-a-bootable-windows-10-usb-in-linux 
 
-Fix the MBR – Guide for Windows XP, Vista, 7, 8, 8.1, 10
+### Fix the MBR – Guide for Windows XP, Vista, 7, 8, 8.1, 10
 https://neosmart.net/wiki/fix-mbr/ 
 bootrec /FixMbr
 bootrec /FixBoot
 bootrec /ScanOs
 bootrec /RebuildBcd
 
-Use Linux Software RAID - find RAID Status:
+### Use Linux Software RAID - find RAID Status:
 https://www.thomas-krenn.com/en/wiki/Linux_Software_RAID 
 mdadm -D /dev/md123
 cat /proc/mdstat
 
-Use Linux Software RAID - check array:
+### Use Linux Software RAID - check array:
 
 smartctl
 S.M.A.R.T. (Self-Monitoring, Analysis and Reporting Technology
@@ -1307,12 +1279,12 @@ see if drive is healthy
 smartctl -H /dev/sda
 ```
 
-smartctl Viewing the Test Results
+### smartctl Viewing the Test Results
 ```
 sudo smartctl -a /dev/sdc
 ```
 
-How do I find out what hard disks are in the system?
+### How do I find out what hard disks are in the system?
 https://unix.stackexchange.com/questions/4561/how-do-i-find-out-what-hard-disks-are-in-the-system
 ```
 lsblk
@@ -1320,7 +1292,7 @@ fdisk -l
 lsscsi
 ```
 
-Find serial for disk
+### Find serial for disk
 ```
 kura1 ~ # lsblk --nodeps -o name,hctl,serial,type,tran /dev/sdk
 NAME HCTL       SERIAL   TYPE TRAN
@@ -1329,7 +1301,7 @@ sdk  7:0:0:0    S1Z1MAYM disk sas
 smartctl -i /dev/sda
 ```
 
-Re-scan disks
+### Re-scan disks
 https://www.cyberciti.biz/tips/vmware-add-a-new-hard-disk-without-rebooting-guest.html
 https://serverfault.com/questions/5336/how-do-i-make-linux-recognize-a-new-sata-dev-sda-drive-i-hot-swapped-in-without
 ```
@@ -1348,19 +1320,14 @@ smartctl --scan | sed 's/#.*//' | while IFS= read dev; do echo -n "$dev: "; smar
 for disk in /dev/sd[c-z] ; do printf "$disk: "; timeout -s 9 5 smartctl -i "$disk" | grep -i serial; done
 ```
 
-Ansible tutorial
+### Ansible tutorial
 https://www.linuxjournal.com/content/weekend-reading-ansible
 
-run ansible while being root
-```
-ansible  kura1.r2.01.fraa.acme.net --user rpopa -m shell -a 'kura-cli status |grep "TKE Count" '
-```
-
-mtr
+### mtr
 MTR is a simple, cross-platform command-line network diagnostic tool that combines the functionality of commonly used traceroute and ping programs into a single tool
 https://www.tecmint.com/mtr-a-network-diagnostic-tool-for-linux/
 
-Unban IP
+### Unban IP
 https://serverfault.com/questions/384230/fail2ban-unblock-ipaddress
 
 Use the --line-numbers option to iptables to get a listing which shows the line numbers for the rules in a chain e.g.
@@ -1434,41 +1401,41 @@ done < <(get_banned_ip | skip_first_4)
 sudo fail2ban-client set ssh-boka unbanip 10.126.65.78
 ```
 
-Less - case insensitive search
+### Less - case insensitive search
 ```
 -i  
 ```
 
 https://access.redhat.com/sites/default/files/attachments/12052018_systemd_6.pdf
 
-systemctl list all failed services
+### systemctl list all failed services
 
 ```
 systemctl list-units --state=failed
 ```
 
-systemctl show details about a failed service
+### systemctl show details about a failed service
 ```
 sudo systemctl status -l smartd.service
 ```
 
-systemctl To show all installed unit files use
+### systemctl To show all installed unit files use
 ```
 systemctl list-unit-files
 ```
 
-systemctl show logs for failing service
+### systemctl show logs for failing service
 ```
 journalctl -u service-name.service -b
 ```
 
-Finding the PID of the process using a specific port
+### Finding the PID of the process using a specific port
 ```
 lsof -i :25
 ```
 
 
-curl - send json with variales
+### curl - send json with variales
 ```
 curl "http://localhost:8080" \
 -H "Accept: application/json" \
@@ -1483,7 +1450,7 @@ EOF
 ```
 
 
-Connecting to acme vpn with pulse secure
+### Connecting to acme vpn with pulse secure
 ```
 # 1. Install the package
 sudo dpkg -i ps-pulse-linux-9.0r2.0-b819-ubuntu-debian-64-bit-installer.deb
@@ -1502,12 +1469,12 @@ cp key.pem pulseCert.key
 ```
 
 
-set MTU to 1200
+### set MTU to 1200
 ```
 sudo ip l set mtu 1200 dev tun0
 ```
 
-regex (regular expressions ) and globing
+### regex (regular expressions ) and globing
 
 
 Special Character
@@ -1571,12 +1538,11 @@ jq example
 $ haggr-query -Pm 500 /status | jq -r  'select(.target|startswith("rms")).response?.taikais[]?|. as $t|$t.slots[]?|"\($t.name):\(.slotId) \(.state.state) \(.state.stateReason) \(.state.stateReasonNote)"' | awk '/DISABLED|UNKNOWN/' | wc -l
 ```
 
-jq process list of objects
-
+### jq process list of objects
 
 ```
 radu@radu-x1-carbon:~/p/simnet/scripts$ echo $content 
-[{"name":"README.md","path":"simnet_tests/README.md","sha":"9c6a74c568231cc076ea3c89bb63323e12a69398","size":2037,"url":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/README.md?ref=master","html_url":"https://github.com/paritytech/polkadot/blob/master/simnet_tests/README.md","git_url":"https://api.github.com/repos/paritytech/polkadot/git/blobs/9c6a74c568231cc076ea3c89bb63323e12a69398","download_url":"https://raw.githubusercontent.com/paritytech/polkadot/master/simnet_tests/README.md","type":"file","_links":{"self":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/README.md?ref=master","git":"https://api.github.com/repos/paritytech/polkadot/git/blobs/9c6a74c568231cc076ea3c89bb63323e12a69398","html":"https://github.com/paritytech/polkadot/blob/master/simnet_tests/README.md"}},{"name":"configs","path":"simnet_tests/configs","sha":"e52171fe22e15f36840441b7650eb0f4b26d1da8","size":0,"url":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/configs?ref=master","html_url":"https://github.com/paritytech/polkadot/tree/master/simnet_tests/configs","git_url":"https://api.github.com/repos/paritytech/polkadot/git/trees/e52171fe22e15f36840441b7650eb0f4b26d1da8","download_url":null,"type":"dir","_links":{"self":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/configs?ref=master","git":"https://api.github.com/repos/paritytech/polkadot/git/trees/e52171fe22e15f36840441b7650eb0f4b26d1da8","html":"https://github.com/paritytech/polkadot/tree/master/simnet_tests/configs"}},{"name":"run_tests.sh","path":"simnet_tests/run_tests.sh","sha":"0717d99db7b3415cd3c116d313dbc6fb37876edf","size":2788,"url":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/run_tests.sh?ref=master","html_url":"https://github.com/paritytech/polkadot/blob/master/simnet_tests/run_tests.sh","git_url":"https://api.github.com/repos/paritytech/polkadot/git/blobs/0717d99db7b3415cd3c116d313dbc6fb37876edf","download_url":"https://raw.githubusercontent.com/paritytech/polkadot/master/simnet_tests/run_tests.sh","type":"file","_links":{"self":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/run_tests.sh?ref=master","git":"https://api.github.com/repos/paritytech/polkadot/git/blobs/0717d99db7b3415cd3c116d313dbc6fb37876edf","html":"https://github.com/paritytech/polkadot/blob/master/simnet_tests/run_tests.sh"}},{"name":"tests","path":"simnet_tests/tests","sha":"c152aadff3462ef8157d390f66b99f7615794029","size":0,"url":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/tests?ref=master","html_url":"https://github.com/paritytech/polkadot/tree/master/simnet_tests/tests","git_url":"https://api.github.com/repos/paritytech/polkadot/git/trees/c152aadff3462ef8157d390f66b99f7615794029","download_url":null,"type":"dir","_links":{"self":"https://api.github.com/repos/paritytech/polkadot/contents/simnet_tests/tests?ref=master","git":"https://api.github.com/repos/paritytech/polkadot/git/trees/c152aadff3462ef8157d390f66b99f7615794029","html":"https://github.com/paritytech/polkadot/tree/master/simnet_tests/tests"}}]
+[{"name":"README.md","path":"simnet_tests/README.md","sha":"9c6a74c568231cc076ea3c89bb63323e12a69398","size":2037,"url":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/README.md?ref=master","html_url":"https://github.com/acmetech/polkadot/blob/master/simnet_tests/README.md","git_url":"https://api.github.com/repos/acmetech/polkadot/git/blobs/9c6a74c568231cc076ea3c89bb63323e12a69398","download_url":"https://raw.githubusercontent.com/acmetech/polkadot/master/simnet_tests/README.md","type":"file","_links":{"self":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/README.md?ref=master","git":"https://api.github.com/repos/acmetech/polkadot/git/blobs/9c6a74c568231cc076ea3c89bb63323e12a69398","html":"https://github.com/acmetech/polkadot/blob/master/simnet_tests/README.md"}},{"name":"configs","path":"simnet_tests/configs","sha":"e52171fe22e15f36840441b7650eb0f4b26d1da8","size":0,"url":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/configs?ref=master","html_url":"https://github.com/acmetech/polkadot/tree/master/simnet_tests/configs","git_url":"https://api.github.com/repos/acmetech/polkadot/git/trees/e52171fe22e15f36840441b7650eb0f4b26d1da8","download_url":null,"type":"dir","_links":{"self":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/configs?ref=master","git":"https://api.github.com/repos/acmetech/polkadot/git/trees/e52171fe22e15f36840441b7650eb0f4b26d1da8","html":"https://github.com/acmetech/polkadot/tree/master/simnet_tests/configs"}},{"name":"run_tests.sh","path":"simnet_tests/run_tests.sh","sha":"0717d99db7b3415cd3c116d313dbc6fb37876edf","size":2788,"url":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/run_tests.sh?ref=master","html_url":"https://github.com/acmetech/polkadot/blob/master/simnet_tests/run_tests.sh","git_url":"https://api.github.com/repos/acmetech/polkadot/git/blobs/0717d99db7b3415cd3c116d313dbc6fb37876edf","download_url":"https://raw.githubusercontent.com/acmetech/polkadot/master/simnet_tests/run_tests.sh","type":"file","_links":{"self":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/run_tests.sh?ref=master","git":"https://api.github.com/repos/acmetech/polkadot/git/blobs/0717d99db7b3415cd3c116d313dbc6fb37876edf","html":"https://github.com/acmetech/polkadot/blob/master/simnet_tests/run_tests.sh"}},{"name":"tests","path":"simnet_tests/tests","sha":"c152aadff3462ef8157d390f66b99f7615794029","size":0,"url":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/tests?ref=master","html_url":"https://github.com/acmetech/polkadot/tree/master/simnet_tests/tests","git_url":"https://api.github.com/repos/acmetech/polkadot/git/trees/c152aadff3462ef8157d390f66b99f7615794029","download_url":null,"type":"dir","_links":{"self":"https://api.github.com/repos/acmetech/polkadot/contents/simnet_tests/tests?ref=master","git":"https://api.github.com/repos/acmetech/polkadot/git/trees/c152aadff3462ef8157d390f66b99f7615794029","html":"https://github.com/acmetech/polkadot/tree/master/simnet_tests/tests"}}]
 radu@radu-x1-carbon:~/p/simnet/scripts$ 
 
 
@@ -1593,12 +1559,12 @@ done< <(jq 'x`.[] | "\(.name) \(.type)"' <<< "${content}" --raw-output)
 ```
 
 
-set a value in a file
+### set a value in a file
 https://spin.atomicobject.com/2021/06/08/jq-creating-updating-json/
 https://unix.stackexchange.com/questions/663385/replace-a-value-in-file-with-jq-one-liner
 ```
-NODE="~composable-ci-subsquid-01~composable-ci~"
-SUBSQUID_IMAGE="docker.io/composablefi/subsquid-processor"
+NODE="~acme-ci-subsquid-01~acme-ci~"
+SUBSQUID_IMAGE="docker.io/acmefi/subsquid-processor"
 existing=$(jq -r '.[] 
                      | select(.node=="'${NODE}'").containers[] 
                      | select(.image=="'${SUBSQUID_IMAGE}'").version' \
@@ -1621,80 +1587,70 @@ new=$(jq -r '.[]
 echo "new is ${new}"
 ```
 
-reverse ip lookup
+### reverse ip lookup
 ```
 dig -x 10.13.131.177 @10.8.8.8
 ```
 
-Replacing an LSI raid disk with MegaCli
+### Replacing an LSI raid disk with MegaCli
 https://www.advancedclustering.com/act_kb/replacing-a-disk-with-megacli/
 
 
-Check disk in hardware raid
+### Check disk in hardware raid
 ```
 sudo MegaCli -PDList -aALL| grep -i -E 'slot|error'
 sudo MegaCli -PDList -aALL|grep 'Firmware state'
 ```
  
-# run the cmd below and look for anything that is not "Firmware state: Online, Spun Up"
+### run the cmd below and look for anything that is not "Firmware state: Online, Spun Up"
 ```
 sudo megacli -PDList -a0 | grep -i 'Firmware state'
 ```
 
 
-
-megacli - Check disk in hardware raid
-```
-sudo MegaCli -PDList -aALL| grep -i -E 'slot|error'
-sudo MegaCli -PDList -aALL|grep 'Firmware state'
-megacli -PDList -aAll | grep -e "Adapter" -e "Enclosure Device" -e "Slot Number" -e "Error" -e "Firmware state" -e "Inquiry Data"
-```
- 
-
-find disk info with smartctl
+### find disk info with smartctl
 ```
 smartctl --scan
 hostname -f; dmidecode -s 'system-serial-number'; smartctl -a /dev/bus/1 -d megaraid,17 mk2.r2.03.lona.acme.net
 ```
 
-megacli - Check RAID rebuild
+### megacli - Check RAID rebuild
 ```
 megacli -PDRbld -ShowProg -PhysDrv [32:10] -aALL
 ```
-megacli -  Check RAID Status With Megacli
+
+### megacli -  Check RAID Status With Megacli
     → go to the oob interface → storage → virtual disk
 or
 ```
 sudo megacli -AdpAllInfo -aALL | grep 'Device Present' -A 10
 ```
 
-megacli - configure disk as hot spare
+### megacli - configure disk as hot spare
 ```
 sudo megacli -PDHSP -Set -PhysDrv [32:6] -a0
 ```
 
-This command helps to understand which process was the first one entering D state and which kernel function it was calling. Can be helpful
+### This command helps to understand which process was the first one entering D state and which kernel function it was calling. Can be helpful
 ```
 ps ax -o state,cmd,etime,wchan --sort=etime | awk '$1=="D
 ```
 
-How to gentoo
-list installed packages
+### How to gentoo
+### gentoo list installed packages
 ```
 equery list "*"
 ```
 
-Gentoo - package management
+### Gentoo - package management
 https://wiki.gentoo.org/wiki/Handbook:AMD64/Working/Portage
 
-```
 
-```
 
-LDAP tutorial - good one
+### LDAP tutorial - good one
 https://www.digitalocean.com/community/tutorials/understanding-the-ldap-protocol-data-hierarchy-and-entry-components
 
-ldapsearch - how to search everything
+### ldapsearch - how to search everything
 ```
 #
 #  Get a dump of all ldap data
@@ -1748,7 +1704,7 @@ ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net   "(|(member=cn=Radu Popa,ou
 ldapsearch -xH ldaps://ldap.lax-prod1.prod.acme.net "(&(!(description=*titan*))(member=cn=Radu Popa,ou=Staff,o=acme Inc,c=US))" dn cn description objectClass
 ```
 
-how to test a branch of a conf package
+### how to test a branch of a conf package
 ```
 cd  /var/portage/repos/acme-private/app-upconf/salt-templates/
 vi salt-templates-9999.ebuild
@@ -1758,16 +1714,16 @@ EGIT_BRANCH="salt-syndic"
 ebuild salt-templates-9999.ebuild clean manifest install qmerge
 ```
 
-linux system performance
+### linux system performance
 http://www.brendangregg.com/blog/2020-03-08/lisa2019-linux-systems-performance.html
 
 https://blog.haschek.at/2020/the-perfect-file-server.html
 
-Check the expiration date of an SSL certificate
+### Check the expiration date of an SSL certificate
 ```
 openssl s_client -servername <NAME> -connect <HOST:PORT> 2>/dev/null | openssl x509 -noout -dates
 # example
-SERVER_NAME=elasticsearch.parity-stg.parity.io
+SERVER_NAME=elasticsearch.acme-stg.acme.io
 HOST="${SERVER_NAME}"
 PORT=443
 
@@ -1776,23 +1732,23 @@ notBefore=Feb 10 13:34:27 2022 GMT
 notAfter=May 11 13:34:26 2022 GMT
 ```
 
-# dump to the html file
+### dump to the html file
 ```
 sudo lshw -html > config.html
 ```
 
-# view it
+view it
 ```
 xdg-open config.html
 ```
 
 
 
-open stack tutorial : https://www.youtube.com/watch?v=_gWfFEuert8
+### open stack tutorial : https://www.youtube.com/watch?v=_gWfFEuert8
 
-systemd  specifiers %1  https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Specifiers
+### systemd  specifiers %1  https://www.freedesktop.org/software/systemd/man/systemd.unit.html#Specifiers
 
-system76 nvidia drivers commands
+### system76 nvidia drivers commands
 https://forums.developer.nvidia.com/t/external-monitor-getting-no-input-from-laptop-on-ubuntu-22-04-with-geforce-rtx-3050-ti-mobile/223855
 ```
 apt list | grep nvidia-driver
@@ -1807,8 +1763,8 @@ lspci | grep VGA
 
 https://explainshell.com/explain?cmd=tar+xfvzc+file.tar.gz
 
-Sending quires to graphql
+### Sending quires to graphql
 ```
-curl -g -X POST -H "Content-Type: application/json" -d ' {"query": "query MyQuery { overviewStats { accountHoldersCount activeUsersCount totalValueLocked { price } } }" }' https://stats.composablenodes.tech/graphql
+curl -g -X POST -H "Content-Type: application/json" -d ' {"query": "query MyQuery { overviewStats { accountHoldersCount activeUsersCount totalValueLocked { price } } }" }' https://stats.acmenodes.tech/graphql
 {"data":{"overviewStats":{"accountHoldersCount":2101,"activeUsersCount":74,"totalValueLocked":[{"price":0.001145410336646028},{"price":45.30089034356953},{"price":0.9992989455271616}]}}}
 ```
