@@ -553,11 +553,11 @@ while read -r kura job ; do
   echo "${kura} ${job}" 
 
 done << EOF
-kura1.r11a.04.lona.gaikai.net http://dm1.r3.03.lona.gaikai.net:9143/deploy-manager/v1/batch/b0e272a8b1619ab6adf0128cc07809ac29354ade
-kura1.r11a.05.lona.gaikai.net http://dm1.r3.03.lona.gaikai.net:9143/deploy-manager/v1/batch/9095774410058e7bedb2e87777d1302ed2cb28c4
-kura1.r12a.04.lona.gaikai.net http://dm1.r3.03.lona.gaikai.net:9143/deploy-manager/v1/batch/76802a74b866da7827ac513c8c6dcad566bcf4a8
-kura1.r12a.05.lona.gaikai.net http://dm1.r3.03.lona.gaikai.net:9143/deploy-manager/v1/batch/64b1711ee7ef3fb42ce73beb5b75e9a3819e3de5
-kura1.r13a.04.lona.gaikai.net http://dm1.r3.03.lona.gaikai.net:9143/deploy-manager/v1/batch/76802a74b866da7827ac513c8c6dcad566bcf4a8
+kura1.r11a.04.lona.acme.net http://dm1.r3.03.lona.acme.net:9143/deploy-manager/v1/batch/b0e272a8b1619ab6adf0128cc07809ac29354ade
+kura1.r11a.05.lona.acme.net http://dm1.r3.03.lona.acme.net:9143/deploy-manager/v1/batch/9095774410058e7bedb2e87777d1302ed2cb28c4
+kura1.r12a.04.lona.acme.net http://dm1.r3.03.lona.acme.net:9143/deploy-manager/v1/batch/76802a74b866da7827ac513c8c6dcad566bcf4a8
+kura1.r12a.05.lona.acme.net http://dm1.r3.03.lona.acme.net:9143/deploy-manager/v1/batch/64b1711ee7ef3fb42ce73beb5b75e9a3819e3de5
+kura1.r13a.04.lona.acme.net http://dm1.r3.03.lona.acme.net:9143/deploy-manager/v1/batch/76802a74b866da7827ac513c8c6dcad566bcf4a8
 EOF
 ```
 
