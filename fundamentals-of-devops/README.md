@@ -1,0 +1,1 @@
+[Fundamentals of DevOps and Software Delivery](https://www.gruntwork.io/books/fundamentals-of-devops?ref=gruntwork-blog-medium-announcement-post)
