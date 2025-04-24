@@ -2,8 +2,6 @@
 'EOF' = do NOT interpret variables or commands in here doc
  EOF  = please interpret variables and cmds
 
-
-
 ```bash
 cat << 'EOF' > fileName.extension
 
@@ -14,7 +12,7 @@ EOF
 
 ```
 
-example 
+example
 
 ```bash
 cat << 'EOF' > traffic-dump-clients.sh

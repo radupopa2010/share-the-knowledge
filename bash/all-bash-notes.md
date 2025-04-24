@@ -1,11 +1,13 @@
 https://mywiki.wooledge.org/BashFAQ/005 
 https://www.mankier.com/1/shellcheck
-```
+
+shellcheck disable
+
+```bash
 # shellcheck disable=SC2035
-
 ```
 
-```
+```bash
 function ensure {
   if ! "$@" ; then 
     echo "Command $*failed"
@@ -14,11 +16,10 @@ function ensure {
 }
 ```
 
-
 https://gist.github.com/derekp7/9978986  = RPC in bash
 
 
-```
+```bash
 #!/usr/bin/env bash
 
 # Turn on bash safety options: fail on error, variable unset and error in piped process
@@ -227,7 +228,8 @@ exec &>> /var/log/cron.log
 ```
 
 The Bash builtin getopts function can be used to parse long options  by putting a dash character followed by a colon into the optspec:
-```
+
+```bash
 #!/usr/bin/env bash 
 optspec=":hv-:"
 while getopts "$optspec" optchar; do
@@ -367,7 +369,7 @@ integer1 -ge integer2 integer1 is greater than or equal to integer2.
 integer1 -gt integer2 integer1 is greater than integer2.
 
 
-```
+```bash
 function is_empty_dir {
   local dir_path=$1
   ! find "${dir_path}" -mindepth 1 -print -quit | grep -q .
@@ -384,8 +386,6 @@ fi
 ```
 
 
-
-
 Test globing patterns
 Escape the pattern or it'll get pre-expanded into matches. Exit status is 1 for no-match, 0 for 'one or more matches'. stdout is a list of file matching the glob
 
@@ -396,39 +396,30 @@ compgen -G "<glob-pattern>"
 https://stackoverflow.com/questions/2937407/test-whether-a-glob-has-any-matches-in-bash
 
 Script locations:
-
-```
-  root only - /usr/local/sbin/<script.sh>
-  specific user only - $HOME/bin/<script.sh>
-  any user - /usr/local/bin/<script.sh>
-```
-
+- root only - `/usr/local/sbin/<script.sh>`
+- specific user only - `$HOME/bin/<script.sh>`
+- any user - `/usr/local/bin/<script.sh>`
 
 Get script dir from inside the script
 
-```
+```bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ```
 
-
-Script settings
-set -euo pipefail
-
 Looping in associative arrays
-```
+
+```bash
 for i in "${!array[@]}"; do
   echo "key : $i"
   echo "value: ${array[$i]}"
 done
 ```
 
-
 Create array from file content
 
-```
+```bash
 # IFS should be '\n'
 readarray rows < demo.txt                                           
-
 
 for row in "${rows[@]}";do                                                      
   row_array=(${row})                                                            
@@ -437,10 +428,13 @@ for row in "${rows[@]}";do
 done
 ```
 
-
 Create array from var
+
+```bash
 cnxs="con1 con2"
 arr=(${cnxs})
+```
+
 
 Arrays
 https://mywiki.wooledge.org/BashSheet#Arrays 
@@ -456,21 +450,29 @@ https://brbsix.github.io/2015/11/29/bash-scripting-dos-and-donts/
 How to debug a bash script?
 https://unix.stackexchange.com/questions/155551/how-to-debug-a-bash-script
 
+```bash
 set -x
 ..code to debug...
 set +x
+```
+
 or
+
+```bash
 bash -x ./script.sh
+```
 
 Print line number
-```
+
+```bash
 # In Bash, $LINENO contains the line number where the script currently executing
 echo "${LINENO}"
 ```
 
 How to execute a bash command stored as a string with quotes and asterisk
 https://stackoverflow.com/questions/2005192/how-to-execute-a-bash-command-stored-as-a-string-with-quotes-and-asterisk
-```
+
+```bash
 eval ${cmd}
 ```
 
@@ -480,7 +482,8 @@ https://tiswww.case.edu/php/chet/bash/bashtop.html
 shellcheck disable
 Ignoring all instances in a file (0.4.4+)
 Add a directive at the top of the file:
-```
+
+```bash
 #!/bin/sh
 # shellcheck disable=SC2059
 ```
@@ -488,7 +491,8 @@ Add a directive at the top of the file:
 https://kvz.io/blog/2013/11/21/bash-best-practices/ 
 
 Bash, find files in a safe way:
-```
+
+```bash
  while read -d $'\0' def_file; do                                                      
    def_files+=( "${def_file}" )                                                        
    kept_files+=( "'${def_file}'" )                                                     
@@ -498,7 +502,8 @@ Bash, find files in a safe way:
 
 Bash process files
 https://mywiki.wooledge.org/BashFAQ/020
-```
+
+```bash
 # Bash
 unset a i
 while IFS= read -r -d '' file; do
@@ -508,7 +513,8 @@ done < <(find /tmp -type f -print0)
 
 How to count the number of a specific character in each line?
 https://unix.stackexchange.com/questions/18736/how-to-count-the-number-of-a-specific-character-in-each-line#18742
-```
+
+```bash
 tr -d -c '"\n' <<< ${line} | awk '{ print length; }'
 ```
 
@@ -518,17 +524,17 @@ PARAMS=("?jql=labels=ogAlias:123456789+AND+createdDate+>+-1d"
         "&fields=summary,status,labels,created")                                          
 function join_by { local IFS="$1"; shift; echo "$*"; }   # join on empty string elements of an array                   
 URL=$(join_by '' "${PARAMS[@]}")                                           
-
 ```
-
 
 xarg with bash cmd
-```
+
+```bash
 gk hosts grafana --plain | awk '{print $1}' | xargs -P10 -n1 -I{} bash -c "curl -x socks5://localhost:1080 -s -o /dev/null -w '{} %{time_total} %{http_code}\n' 'https://{}/graphite/metrics/find?query=lax-prod1.derived.*'"
 ```
 
 Logging function
-```
+
+```bash
 function log {
   local lvl msg fmt
   lvl=$1 msg=$2
@@ -544,9 +550,9 @@ function log {
 }
 ```
 
-
 while read heredoc
-```
+
+```bash
 #!/bin/bash
 while read -r kura job ; do
 
@@ -563,7 +569,8 @@ EOF
 
 regex
 https://riptutorial.com/bash/example/19469/regex-matching
-```
+
+```bash
     pat='[^0-9]+([0-9]+)'
     s='I am a string with some digits 1024'
     [[ $s =~ $pat ]] # $pat must be unquoted
@@ -574,3 +581,24 @@ https://riptutorial.com/bash/example/19469/regex-matching
 ```
 
 Why you shouldn't parse the output of ls(1)
+
+## curl 
+
+### curl - send json with variables
+
+```bash
+curl -X POST \
+  https://events.pagerduty.com/v2/enqueue \
+  -H "Content-Type: application/json" \
+  -d @- <<EOF
+{
+  "routing_key": "$PD_ROUTING_KEY",
+  "event_action": "trigger",
+  "payload": {
+    "summary": "Test alert from cURL",
+    "source": "my-app",
+    "severity": "error"
+  }
+}
+EOF
+```
