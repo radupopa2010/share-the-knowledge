@@ -1,5 +1,6 @@
 
 ### Create array
+
 ```bash
 declare -A colors
 colors["red"]="#ff0000"
@@ -8,6 +9,7 @@ colors["blue"]="#0000ff"
 ```
 
 ### Looping in associative arrays
+
 ```bash
 declare -A colors
 colors["red"]="#ff0000"

@@ -1,11 +1,18 @@
+# Bash
+
 https://mywiki.wooledge.org/BashFAQ/005 
 https://www.mankier.com/1/shellcheck
 
-shellcheck disable
+## shellcheck disable
 
 ```bash
 # shellcheck disable=SC2035
 ```
+
+## Utility function ensure
+
+Use it when you want some commands in your script to fail, while you want ensure that
+others don't
 
 ```bash
 function ensure {
@@ -16,8 +23,11 @@ function ensure {
 }
 ```
 
-https://gist.github.com/derekp7/9978986  = RPC in bash
+## RPC in bash
 
+https://gist.github.com/derekp7/9978986
+
+## Script to use as template
 
 ```bash
 #!/usr/bin/env bash
@@ -59,7 +69,8 @@ main "$@"
 ```
 
 https://wiki.bash-hackers.org/howto/getopts_tutorial
-```
+
+```bash
 #!/bin/bash
 
 # The purpose of this script is to 
@@ -223,7 +234,8 @@ cleanup
 ```
 
 # redirect all script output to a log file
-```
+
+```bash
 exec &>> /var/log/cron.log
 ```
 
@@ -267,8 +279,8 @@ while getopts "$optspec" optchar; do
 done
 ```
 
+## Reading data from user input
 
-reading data from user input
 read [-options] [variable]
 
 if not [variable[s]]: $REPLY is created
@@ -343,7 +355,6 @@ effective user).
 -x file file exists and is executable (has execute/search
 permission for the effective user).
 
-
 String Expressions
 string Is True If...
 
@@ -357,17 +368,15 @@ string1 != string2 string1 and string2 are not equal.
 string1 > string2 string1 sorts after string2.
 string1 < string2 string1 sorts before string2.
 
-
 Integer Expressions
 Expression Is True If...
 
-integer1 -eq integer2 integer1 is equal to integer2.
-integer1 -ne integer2 integer1 is not equal to integer2.
-integer1 -le integer2 integer1 is less than or equal to integer2.
-integer1 -lt integer2 integer1 is less than integer2.
-integer1 -ge integer2 integer1 is greater than or equal to integer2.
-integer1 -gt integer2 integer1 is greater than integer2.
-
+- `integer1 -eq integer2` integer1 is equal to integer2.
+- `integer1 -ne integer2` integer1 is not equal to integer2.
+- `integer1 -le integer2` integer1 is less than or equal to integer2.
+- `integer1 -lt integer2` integer1 is less than integer2.
+- `integer1 -ge integer2` integer1 is greater than or equal to integer2.
+- `integer1 -gt integer2` integer1 is greater than integer2.
 
 ```bash
 function is_empty_dir {
@@ -385,28 +394,29 @@ fi
  }
 ```
 
+## Test globing patterns
 
-Test globing patterns
 Escape the pattern or it'll get pre-expanded into matches. Exit status is 1 for no-match, 0 for 'one or more matches'. stdout is a list of file matching the glob
 
-```
+```bash
 compgen -G "<glob-pattern>"
 ```
 
 https://stackoverflow.com/questions/2937407/test-whether-a-glob-has-any-matches-in-bash
 
-Script locations:
+## Script locations
+
 - root only - `/usr/local/sbin/<script.sh>`
 - specific user only - `$HOME/bin/<script.sh>`
 - any user - `/usr/local/bin/<script.sh>`
 
-Get script dir from inside the script
+## Get script dir from inside the script
 
 ```bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ```
 
-Looping in associative arrays
+## Looping in associative arrays
 
 ```bash
 for i in "${!array[@]}"; do
@@ -415,7 +425,7 @@ for i in "${!array[@]}"; do
 done
 ```
 
-Create array from file content
+## Create array from file content
 
 ```bash
 # IFS should be '\n'
@@ -435,19 +445,24 @@ cnxs="con1 con2"
 arr=(${cnxs})
 ```
 
+## Arrays
 
-Arrays
-https://mywiki.wooledge.org/BashSheet#Arrays 
-How can I use array variables?
+https://mywiki.wooledge.org/BashSheet#Arrays
+
+## How can I use array variables?
+
 https://mywiki.wooledge.org/BashFAQ/005 
 
-How do I use null bytes in Bash?
+## How do I use null bytes in Bash?
+
 https://unix.stackexchange.com/questions/174016/how-do-i-use-null-bytes-in-bash
 
-some thips
+## Some tips
+
 https://brbsix.github.io/2015/11/29/bash-scripting-dos-and-donts/
 
-How to debug a bash script?
+## How to debug a bash script?
+
 https://unix.stackexchange.com/questions/155551/how-to-debug-a-bash-script
 
 ```bash
@@ -462,14 +477,15 @@ or
 bash -x ./script.sh
 ```
 
-Print line number
+## Print line number
 
 ```bash
 # In Bash, $LINENO contains the line number where the script currently executing
 echo "${LINENO}"
 ```
 
-How to execute a bash command stored as a string with quotes and asterisk
+## How to execute a bash command stored as a string with quotes and asterisk
+
 https://stackoverflow.com/questions/2005192/how-to-execute-a-bash-command-stored-as-a-string-with-quotes-and-asterisk
 
 ```bash
